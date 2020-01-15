@@ -17,14 +17,15 @@ def calcdf(dataframe):
     return df.tolist() # document frequency is returned as a regular list
 
 def calcidf(df, dataframe):
-    """Calculate the inversed document frequency for the `df` dataframe provided. The function returns an inverted document frequency per word in a list.
+    """
+    Calculate the inversed document frequency for the `df` dataframe provided. The function returns an inverted document frequency per word in a list.
     Provide `df` as document frequency and `dataframe` the dataframe generated with the `opendoc` function.
     """
     idf = list()
     for term in df:
         multiplication = dataframe[1] * term
         term = mth.log2(multiplication)
-        idf.append(term)
+        idf.append(term) # add the idf just created to a new list called idf, with a entry for every word
     return idf
 
 dataframe = opendoc("test_data/recepten.csv")
