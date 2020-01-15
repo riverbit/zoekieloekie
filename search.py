@@ -1,4 +1,3 @@
-import csv
 import pandas as pd
 import math as mth
 def opendoc(doc): 
