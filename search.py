@@ -27,7 +27,29 @@ def calcidf(df, dataframe):
         idf.append(term) # add the idf just created to a new list called idf, with a entry for every word
     return idf
 
+def generatetwmatrix(dataframe, idf):
+    dataframe = dataframe[0]
+    for tuple in dataframe.itertuples():
+        tuplen = len(tuple)
+        for i in range(2, tuplen):
+            tupvalue = tuple[i]
+            if type(tupvalue) is str:
+                pass
+            elif type(tupvalue):
+                current_row = tuple[0]
+                header = tuple._fields[i]
+                tupvalue = tupvalue * idf[current_row]
+                sq_tupvalue = tupvalue * tupvalue
+                dataframe.at[(current_row), header] = sq_tupvalue
+    return dataframe
+
 dataframe = opendoc("test_data/recepten.csv")
 df = calcdf(dataframe)
 idf = calcidf(df, dataframe)
-print(idf)
+#print(dataframe[0])
+#print(idf)
+print(generatetwmatrix(dataframe, idf))
+
+#for(label, series) in dataframe[0].iterrows():
+    #print(label)
+    #print(series)
