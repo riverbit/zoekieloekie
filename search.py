@@ -18,7 +18,7 @@ def calcdf(dataframe):
 def calcidf(df, dataframe):
     """
     Calculate the inversed document frequency for the `df` dataframe provided. The function returns an inverted document frequency per word in a list.
-    Provide `df` as document frequency and `dataframe` the dataframe generated with the `opendoc` function.
+    Provide `df` as document frequency and `dataframe` the dataframe tuple containing the length as well, generated with the `opendoc` function.
     """
     idf = list()
     for term in df:
@@ -28,14 +28,13 @@ def calcidf(df, dataframe):
     return idf
 
 def generatetwmatrix(dataframe, idf):
-    dataframe = dataframe[0]
-    for tuple in dataframe.itertuples():
-        tuplen = len(tuple)
-        for i in range(2, tuplen):
+    """Generates a squared weighted term matrix from a `dataframe` and `idf`. Returns the updated weighted term matrix."""
+    dataframe = dataframe[0] # get the first entry from the tuple
+    for tuple in dataframe.itertuples(): # create a tuple from every line in the dataframe
+        tuplen = len(tuple) # get the length of the tuple
+        for i in range(2, tuplen): # for every digit in the tuple (starting from 2), do the loop
             tupvalue = tuple[i]
-            if type(tupvalue) is str:
-                pass
-            elif type(tupvalue):
+            if type(tupvalue) is not str: # if the value is not an int or float, do nothing
                 current_row = tuple[0]
                 header = tuple._fields[i]
                 tupvalue = tupvalue * idf[current_row]
