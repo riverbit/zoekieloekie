@@ -34,10 +34,10 @@ def generatetwmatrix(dataframe, idf):
         tuplen = len(tuple) # get the length of the tuple
         for i in range(2, tuplen): # for every digit in the tuple (starting from 2), do the loop
             tupvalue = tuple[i]
-            if type(tupvalue) is not str: # if the value is not an int or float, do nothing
-                current_row = tuple[0]
-                header = tuple._fields[i]
-                tupvalue = tupvalue * idf[current_row]
+            if type(tupvalue) is not str: # check if it is a float or integer
+                current_row = tuple[0] # get the current row which is the first item in the tuple
+                header = tuple._fields[i] # the name of the field is the label of the namedtuple
+                tupvalue = tupvalue * idf[current_row] # multiply the tupvalue with the inverted document frequency of the current row
                 sq_tupvalue = tupvalue * tupvalue
                 dataframe.at[(current_row), header] = sq_tupvalue
     return dataframe
