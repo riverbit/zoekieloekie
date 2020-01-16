@@ -42,13 +42,24 @@ def generatetwmatrix(dataframe, idf):
                 dataframe.at[(current_row), header] = sq_tupvalue
     return dataframe
 
+def generatedveclen(twmatrix):
+    """
+    Generates the document vector length for every document when given the term-weight matrix as `twmatrix`. Supplies a list.
+    """
+    header = list(twmatrix)
+    headerlen = len(header)
+    totals = list()
+    for i in range(1, headerlen):
+        total = twmatrix[header[i]].sum()
+        total_sqrt = mth.sqrt(total)
+        totals.append(total_sqrt)
+    return totals
+
 dataframe = opendoc("test_data/recepten.csv")
 df = calcdf(dataframe)
 idf = calcidf(df, dataframe)
 #print(dataframe[0])
 #print(idf)
-print(generatetwmatrix(dataframe, idf))
-
-#for(label, series) in dataframe[0].iterrows():
-    #print(label)
-    #print(series)
+matrix = generatetwmatrix(dataframe, idf)
+#print(matrix)
+print(generatedveclen(matrix))
