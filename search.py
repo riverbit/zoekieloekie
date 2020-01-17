@@ -28,13 +28,13 @@ def generatedveclen(twmatrix):
     """
     Generates the document vector length for every document when given the term-weight matrix as `twmatrix`. Supplies a list.
     """
-    header = list(twmatrix)
+    header = list(twmatrix) # get the header of the matrix
     headerlen = len(header)
     totals = list()
-    for i in range(1, headerlen):
-        total = twmatrix[header[i]].sum()
-        total_sqrt = mth.sqrt(total)
-        totals.append(total_sqrt)
+    for i in range(1, headerlen): # for every entry in the list, starting from the first until the last digit, do the loop
+        total = twmatrix[header[i]].sum() # get the sum of the complete column with the header corresponding to the current loop-ID
+        total_sqrt = mth.sqrt(total) # get the square root of the total
+        totals.append(total_sqrt) # add the total to the list
     return totals
 
 def getdotprod(query, dataframe):
