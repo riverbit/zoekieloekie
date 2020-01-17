@@ -68,17 +68,17 @@ def sim(dotproducts, query, veclen):
     return similarities
 
 def rank(similarities):
-    sim = similarities.items() 
+    sim = similarities.values() 
     print(sorted(sim, reverse=True))
 
  
-dataframe = opendoc("test_data/recepten.csv")
-#print(dataframe[0])
+dataframe = opendoc("test_data/test.csv")
+print("Dataframe", dataframe[0])
 twmatrix = generatesqrmatrix(dataframe)
-#print(twmatrix)
+print("Matrix:", twmatrix)
 vectorlength = (generatedveclen(twmatrix))
-#print(vectorlength)
-query = ['appel', 'deeg']
+print("Vectorlength", vectorlength)
+query = ['ei', 'tomaat']
 dotproducts = getdotprod(query, dataframe)
 similarities = sim(dotproducts, query, vectorlength)
 rank(similarities)
