@@ -54,17 +54,17 @@ def getdotprod(query, dataframe):
     return dotproducts
 
 def sim(dotproducts, query, veclen):
-    """Calculate the cosine similarity for the `dotproducts`, `query` provided with the previously calculated `veclen` as vector length."""
-    counter = -1
-    similarities = dict()
+    """Calculate the cosine similarity for the `dotproducts` and `query` provided with the previously calculated `veclen` as vector length."""
+    counter = -1 # create a counter which will be zero on the first iteration
+    similarities = dict() # create a dictionary for the results per word
     for item in dotproducts: # go through every document
-        counter += 1
-        vectorlength = veclen[counter]
-        dotproduct = dotproducts[item]
+        counter += 1 # increase the counter
+        vectorlength = veclen[counter] # get the vectorlength for the current word
+        dotproduct = dotproducts[item] # get the result of the dot product function for the current word
         querylength = len(query)
-        sqrtquerylength = mth.sqrt(querylength)
-        calculation = (dotproduct / (vectorlength * sqrtquerylength))
-        similarities[item] = calculation
+        sqrtquerylength = mth.sqrt(querylength) # get the square root of the query length
+        calculation = (dotproduct / (vectorlength * sqrtquerylength)) # calculate the cosine similarity
+        similarities[item] = calculation # add the result to the dictionary for the current word
     return similarities
 
 def rank(similarities):
