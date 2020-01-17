@@ -9,46 +9,76 @@ def opendoc(doc):
     docamount = csv.shape[1] - 1 # the amount of documents in the dataframe is returned. One is subtracted since the first cell is empty
     return(csv, docamount)
 
-def calcdf(dataframe): 
-    """Calculates document frequency for the csv-file `doc` and returns this document frequency in a list sorted by document ID. Supply `dataframe`."""
-    adj_dataframe = dataframe[0].astype(bool).sum(axis=1, numeric_only=True) # generate a dataframe with all the occurences of the word, PLUS ONE
-    df = adj_dataframe.apply(lambda x: x - 1) # return the value of newcsv (dataframe with doc occurences) minus one for every row
-    return df.tolist() # document frequency is returned as a regular list
-
-def calcidf(df, dataframe):
-    """
-    Calculate the inversed document frequency for the `df` dataframe provided. The function returns an inverted document frequency per word in a list.
-    Provide `df` as document frequency and `dataframe` the dataframe tuple containing the length as well, generated with the `opendoc` function.
-    """
-    idf = list()
-    for term in df:
-        multiplication = dataframe[1] * term
-        term = mth.log2(multiplication)
-        idf.append(term) # add the idf just created to a new list called idf, with a entry for every word
-    return idf
-
-def generatetwmatrix(dataframe, idf):
-    """Generates a squared weighted term matrix from a `dataframe` and `idf`. Returns the updated weighted term matrix."""
+def generatesqrmatrix(dataframe):
+    """Generates a squared weighted term matrix from a `dataframe`. Returns the updated weighted term matrix."""
     dataframe = dataframe[0] # get the first entry from the tuple
-    for tuple in dataframe.itertuples(): # create a tuple from every line in the dataframe
+    dataframesqr = dataframe.copy()
+    for tuple in dataframesqr.itertuples(): # create a tuple from every line in the dataframe
         tuplen = len(tuple) # get the length of the tuple
         for i in range(2, tuplen): # for every digit in the tuple (starting from 2), do the loop
             tupvalue = tuple[i]
             if type(tupvalue) is not str: # check if it is a float or integer
                 current_row = tuple[0] # get the current row which is the first item in the tuple
                 header = tuple._fields[i] # the name of the field is the label of the namedtuple
-                tupvalue = tupvalue * idf[current_row] # multiply the tupvalue with the inverted document frequency of the current row
-                sq_tupvalue = tupvalue * tupvalue
-                dataframe.at[(current_row), header] = sq_tupvalue
-    return dataframe
+                tupvalue = tupvalue * tupvalue # square the tupvalue
+                dataframesqr.at[(current_row), header] = tupvalue
+    return dataframesqr
 
-dataframe = opendoc("test_data/recepten.csv")
-df = calcdf(dataframe)
-idf = calcidf(df, dataframe)
-#print(dataframe[0])
-#print(idf)
-print(generatetwmatrix(dataframe, idf))
+def generatedveclen(twmatrix):
+    """
+    Generates the document vector length for every document when given the term-weight matrix as `twmatrix`. Supplies a list.
+    """
+    header = list(twmatrix)
+    headerlen = len(header)
+    totals = list()
+    for i in range(1, headerlen):
+        total = twmatrix[header[i]].sum()
+        total_sqrt = mth.sqrt(total)
+        totals.append(total_sqrt)
+    return totals
 
-#for(label, series) in dataframe[0].iterrows():
-    #print(label)
-    #print(series)
+def getdotprod(query, dataframe):
+    """Calculates the dot product for the `document` provided. The `query` is provided as a list and uses the dataframe to calculate the dot product for this document."""
+    df = dataframe[0] # get the first entry from the tuple and name it df
+    length = dataframe[1] + 1 # get the amount of documents and add one so the for loop works
+    headers = list(dataframe[0])
+    dotproducts = dict()
+    for i in range(1, length):
+        currentframe = df[['Unnamed: 0', headers[i]]].copy() # copy the existing dataframe to a new dataframe called currentframe
+        totalscore = 0
+        for tuple in currentframe.itertuples(): # create a tuple from every line in the dataframe
+            if tuple[1] in query: # if the term is in the query, add the frequency to the totalscore
+                totalscore += tuple[2]
+        dotproducts[headers[i]] = totalscore # add the totalscore to a dictionary
+        del currentframe # delete the copied dataframe to save on memory
+    return dotproducts
+
+def sim(dotproducts, query, veclen):
+    """Calculate the cosine similarity for the `dotproducts`, `query` provided with the previously calculated `veclen` as vector length."""
+    counter = -1
+    similarities = dict()
+    for item in dotproducts: # go through every document
+        counter += 1
+        vectorlength = veclen[counter]
+        dotproduct = dotproducts[item]
+        querylength = len(query)
+        sqrtquerylength = mth.sqrt(querylength)
+        calculation = (dotproduct / (vectorlength * sqrtquerylength))
+        similarities[item] = calculation
+    return similarities
+
+def rank(similarities):
+    sim = similarities.values() 
+    print(sorted(sim, reverse=True))
+
+ 
+dataframe = opendoc("test_data/test.csv")
+print("Dataframe", dataframe[0])
+twmatrix = generatesqrmatrix(dataframe)
+print("Matrix:", twmatrix)
+vectorlength = (generatedveclen(twmatrix))
+print("Vectorlength", vectorlength)
+query = ['ei', 'tomaat']
+dotproducts = getdotprod(query, dataframe)
+similarities = sim(dotproducts, query, vectorlength)
+rank(similarities)
