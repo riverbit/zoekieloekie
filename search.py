@@ -37,23 +37,25 @@ def generatedveclen(twmatrix):
         totals.append(total_sqrt)
     return totals
 
-def calcdotprod(query, dataframe, document):
-    """
-    Calculates the dot product for the `document` provided. The `query` is provided as a list and uses the dataframe to calculate the dot product for this document.
-    """
-    dataframe = dataframe[0] # get the first entry from the tuple
-    currentframe = dataframe[['Unnamed: 0', 'appeltaart']].copy() # copy the existing dataframe to a new dataframe called currentframe
-    totalscore = 0
-    for tuple in currentframe.itertuples(): # create a tuple from every line in the dataframe
-        if tuple[1] in query: # if the term is in the query, add the frequency to the totalscore
-            totalscore += tuple[2]
-    del currentframe # delete the copied dataframe to save on memory
-    return totalscore
-
+def getdotprod(query, dataframe):
+    """Calculates the dot product for the `document` provided. The `query` is provided as a list and uses the dataframe to calculate the dot product for this document."""
+    df = dataframe[0] # get the first entry from the tuple and name it df
+    length = dataframe[1] + 1 # get the amount of documents and add one so the for loop works
+    headers = list(dataframe[0])
+    dotproducts = dict()
+    for i in range(1, length):
+        currentframe = df[['Unnamed: 0', headers[i]]].copy() # copy the existing dataframe to a new dataframe called currentframe
+        totalscore = 0
+        for tuple in currentframe.itertuples(): # create a tuple from every line in the dataframe
+            if tuple[1] in query: # if the term is in the query, add the frequency to the totalscore
+                totalscore += tuple[2]
+        dotproducts[headers[i]] = totalscore
+        del currentframe # delete the copied dataframe to save on memory
+    return dotproducts
 
 dataframe = opendoc("test_data/recepten.csv")
-#print(dataframe)
+#print(dataframe[0])
 twmatrix = generatesqrmatrix(dataframe)
 #print(twmatrix)
 #print(generatedveclen(twmatrix))
-print(calcdotprod(['appel', 'deeg'], dataframe, 'appeltaart'))
+print(getdotprod(['appel', 'deeg'], dataframe))
