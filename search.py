@@ -9,26 +9,8 @@ def opendoc(doc):
     docamount = csv.shape[1] - 1 # the amount of documents in the dataframe is returned. One is subtracted since the first cell is empty
     return(csv, docamount)
 
-def calcdf(dataframe): 
-    """Calculates document frequency for the csv-file `doc` and returns this document frequency in a list sorted by document ID. Supply `dataframe`."""
-    adj_dataframe = dataframe[0].astype(bool).sum(axis=1, numeric_only=True) # generate a dataframe with all the occurences of the word, PLUS ONE
-    df = adj_dataframe.apply(lambda x: x - 1) # return the value of newcsv (dataframe with doc occurences) minus one for every row
-    return df.tolist() # document frequency is returned as a regular list
-
-def calcidf(df, dataframe):
-    """
-    Calculate the inversed document frequency for the `df` dataframe provided. The function returns an inverted document frequency per word in a list.
-    Provide `df` as document frequency and `dataframe` the dataframe tuple containing the length as well, generated with the `opendoc` function.
-    """
-    idf = list()
-    for term in df:
-        multiplication = dataframe[1] * term
-        term = mth.log2(multiplication)
-        idf.append(term) # add the idf just created to a new list called idf, with a entry for every word
-    return idf
-
-def generatetwmatrix(dataframe, idf):
-    """Generates a squared weighted term matrix from a `dataframe` and `idf`. Returns the updated weighted term matrix."""
+def generatesqrmatrix(dataframe):
+    """Generates a squared weighted term matrix from a `dataframe`. Returns the updated weighted term matrix."""
     dataframe = dataframe[0] # get the first entry from the tuple
     for tuple in dataframe.itertuples(): # create a tuple from every line in the dataframe
         tuplen = len(tuple) # get the length of the tuple
@@ -37,9 +19,8 @@ def generatetwmatrix(dataframe, idf):
             if type(tupvalue) is not str: # check if it is a float or integer
                 current_row = tuple[0] # get the current row which is the first item in the tuple
                 header = tuple._fields[i] # the name of the field is the label of the namedtuple
-                tupvalue = tupvalue * idf[current_row] # multiply the tupvalue with the inverted document frequency of the current row
-                sq_tupvalue = tupvalue * tupvalue
-                dataframe.at[(current_row), header] = sq_tupvalue
+                tupvalue = tupvalue * tupvalue # square the tupvalue
+                dataframe.at[(current_row), header] = tupvalue
     return dataframe
 
 def generatedveclen(twmatrix):
@@ -56,10 +37,7 @@ def generatedveclen(twmatrix):
     return totals
 
 dataframe = opendoc("test_data/recepten.csv")
-df = calcdf(dataframe)
-idf = calcidf(df, dataframe)
-#print(dataframe[0])
-#print(idf)
-matrix = generatetwmatrix(dataframe, idf)
-#print(matrix)
-print(generatedveclen(matrix))
+print(dataframe[1])
+twmatrix = generatesqrmatrix(dataframe)
+print(twmatrix)
+print(generatedveclen(twmatrix))
