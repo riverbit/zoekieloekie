@@ -68,8 +68,9 @@ def sim(dotproducts, query, veclen):
     return similarities
 
 def rank(similarities):
-    sim = similarities.values() 
-    print(sorted(sim, reverse=True))
+    dfSimi = pd.DataFrame(list(similarities.items()))
+    dfSimi.sort_values(by=[1], inplace=True, ascending=False)
+    return dfSimi
 
  
 dataframe = opendoc("test_data/test.csv")
@@ -81,4 +82,4 @@ print("Vectorlength", vectorlength)
 query = ['ei', 'tomaat']
 dotproducts = getdotprod(query, dataframe)
 similarities = sim(dotproducts, query, vectorlength)
-rank(similarities)
+print(rank(similarities))
