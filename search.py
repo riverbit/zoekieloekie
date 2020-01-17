@@ -49,13 +49,36 @@ def getdotprod(query, dataframe):
         for tuple in currentframe.itertuples(): # create a tuple from every line in the dataframe
             if tuple[1] in query: # if the term is in the query, add the frequency to the totalscore
                 totalscore += tuple[2]
-        dotproducts[headers[i]] = totalscore
+        dotproducts[headers[i]] = totalscore # add the totalscore to a dictionary
         del currentframe # delete the copied dataframe to save on memory
     return dotproducts
 
+def sim(dotproducts, query, veclen):
+    """Calculate the cosine similarity for the `dotproducts`, `query` provided with the previously calculated `veclen` as vector length."""
+    counter = -1
+    similarities = dict()
+    for item in dotproducts: # go through every document
+        counter += 1
+        vectorlength = veclen[counter]
+        dotproduct = dotproducts[item]
+        querylength = len(query)
+        sqrtquerylength = mth.sqrt(querylength)
+        calculation = (dotproduct / (vectorlength * sqrtquerylength))
+        similarities[item] = calculation
+    return similarities
+
+def rank(similarities):
+    sim = similarities.items() 
+    print(sorted(sim, reverse=True))
+
+ 
 dataframe = opendoc("test_data/recepten.csv")
 #print(dataframe[0])
 twmatrix = generatesqrmatrix(dataframe)
 #print(twmatrix)
-#print(generatedveclen(twmatrix))
-print(getdotprod(['appel', 'deeg'], dataframe))
+vectorlength = (generatedveclen(twmatrix))
+#print(vectorlength)
+query = ['appel', 'deeg']
+dotproducts = getdotprod(query, dataframe)
+similarities = sim(dotproducts, query, vectorlength)
+rank(similarities)
