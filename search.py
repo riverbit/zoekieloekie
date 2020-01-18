@@ -28,13 +28,13 @@ def generatedveclen(twmatrix):
     """
     Generates the document vector length for every document when given the term-weight matrix as `twmatrix`. Supplies a list.
     """
-    header = list(twmatrix)
+    header = list(twmatrix) # get the header of the matrix
     headerlen = len(header)
     totals = list()
-    for i in range(1, headerlen):
-        total = twmatrix[header[i]].sum()
-        total_sqrt = mth.sqrt(total)
-        totals.append(total_sqrt)
+    for i in range(1, headerlen): # for every entry in the list, starting from the first until the last digit, do the loop
+        total = twmatrix[header[i]].sum() # get the sum of the complete column with the header corresponding to the current loop-ID
+        total_sqrt = mth.sqrt(total) # get the square root of the total
+        totals.append(total_sqrt) # add the total to the list
     return totals
 
 def getdotprod(query, dataframe):
@@ -54,22 +54,23 @@ def getdotprod(query, dataframe):
     return dotproducts
 
 def sim(dotproducts, query, veclen):
-    """Calculate the cosine similarity for the `dotproducts`, `query` provided with the previously calculated `veclen` as vector length."""
-    counter = -1
-    similarities = dict()
+    """Calculate the cosine similarity for the `dotproducts` and `query` provided with the previously calculated `veclen` as vector length."""
+    counter = -1 # create a counter which will be zero on the first iteration
+    similarities = dict() # create a dictionary for the results per word
     for item in dotproducts: # go through every document
-        counter += 1
-        vectorlength = veclen[counter]
-        dotproduct = dotproducts[item]
+        counter += 1 # increase the counter
+        vectorlength = veclen[counter] # get the vectorlength for the current word
+        dotproduct = dotproducts[item] # get the result of the dot product function for the current word
         querylength = len(query)
-        sqrtquerylength = mth.sqrt(querylength)
-        calculation = (dotproduct / (vectorlength * sqrtquerylength))
-        similarities[item] = calculation
+        sqrtquerylength = mth.sqrt(querylength) # get the square root of the query length
+        calculation = (dotproduct / (vectorlength * sqrtquerylength)) # calculate the cosine similarity
+        similarities[item] = calculation # add the result to the dictionary for the current word
     return similarities
 
 def rank(similarities):
-    sim = similarities.values() 
-    print(sorted(sim, reverse=True))
+    dfSimi = pd.DataFrame(list(similarities.items())) # get the dictionary into a dataframe
+    dfSimi.sort_values(by=[1], inplace=True, ascending=False) # sort the matrix in descending order in the first column
+    return dfSimi
 
  
 dataframe = opendoc("test_data/test.csv")
@@ -81,4 +82,4 @@ print("Vectorlength", vectorlength)
 query = ['ei', 'tomaat']
 dotproducts = getdotprod(query, dataframe)
 similarities = sim(dotproducts, query, vectorlength)
-rank(similarities)
+print(rank(similarities))
