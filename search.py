@@ -72,14 +72,3 @@ def rank(similarities):
     dfSimi.sort_values(by=[1], inplace=True, ascending=False) # sort the matrix in descending order in the first column
     return dfSimi
 
- 
-dataframe = opendoc("test_data/test.csv")
-print("Dataframe", dataframe[0])
-twmatrix = generatesqrmatrix(dataframe)
-print("Matrix:", twmatrix)
-vectorlength = (generatedveclen(twmatrix))
-print("Vectorlength", vectorlength)
-query = ['ei', 'tomaat']
-dotproducts = getdotprod(query, dataframe)
-similarities = sim(dotproducts, query, vectorlength)
-print(rank(similarities))
