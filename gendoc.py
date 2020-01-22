@@ -59,6 +59,10 @@ def generatematrix(wordcounts):
     return matrix
 
 def calcdf(matrix):
+    """
+    Calculates the document frequency for every term in the matrix supplied. Returns
+    a tuple containing a dictionary with the terms and `df` value, as well as the amount of documents.
+    """
     docamount = len(matrix[0]) # get the amount of documents
     df = dict() # create a new dictionary
     for line in range(1, docamount): # get every line from the matrix
@@ -73,6 +77,10 @@ def calcdf(matrix):
     return df, docamount
 
 def calcidf(df):
+    """
+    Generates the inverted document frequency for the document frequency supplied.
+    Returns a dictionary containing all terms and idf value.
+    """
     docamount = df[1] - 1 # subtract 
     docfreq = df[0]
     idf = dict() # create a new dictionary
@@ -84,6 +92,10 @@ def calcidf(df):
     return idf
 
 def generatetfmatrix(matrix, idf):
+    """
+    Generate a new term weight matrix when supplied with the current `matrix` and
+    the weighing factors `idf`. Returns a new matrix using lists.
+    """
     docamount = len(matrix[0]) # get the amount of documents
     updatedmatrix = list() # create a new empty matrix
     updatedmatrix.append(matrix[0]) # set the header in the new matrix
@@ -100,6 +112,14 @@ def generatetfmatrix(matrix, idf):
         updatedmatrix.append(newrow) # append the filled row to the updated matrix
     return updatedmatrix
 
+def saveastxt(document, name="data/database.txt"):
+    """
+    Saves the supplied variable as a txt file called `database.txt` by default in the folder data.
+    The file name can be changed. The file path needs to be supplied in the `name` variable.
+    """
+    with open(name, "w") as output:
+        output.write(str(document))
+
 # EXAMPLE
 doclist = ["test1.txt", "test2.txt", "test3.txt", "test4.txt"]
 folderpath = "test_data"
@@ -110,3 +130,4 @@ df = calcdf(matrix)
 idf = calcidf(df)
 b = generatetfmatrix(matrix, idf)
 print(b)
+saveastxt(b)
