@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Landing</title>
+	</head>
+	<body>
+		<h1>Zoekopdracht: {{ query }}</h1>
+		<b>Aantal gevonden resultaten: XXXXX</b></br>
+		{% for result in results %}
+		<i>rank: {{ result[0] }} - score: {{ result[1] }} - document: {{ result[2] }}</i></br>
+		{{ result[3] }}</br></br>
+		{% endfor %}
+		</form>
+	</body>
+</html>
