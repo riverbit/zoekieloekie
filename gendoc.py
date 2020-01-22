@@ -1,4 +1,4 @@
-import pandas as pd
+import math as mth
 def cleantext(text):
     """This function cleans the supplied text from illegal characters, such as interpunction,
     upper case letters and numbers. It also generates the document term frequencies."""
@@ -35,31 +35,47 @@ def gentermfreq(doclist, folderpath):
     return wordcounts
 
 def generatematrix(wordcounts):
-    wordlist = list()
+    """Generate a term frequency matrix from the `wordcount` dictionary provided."""
+    wordlist = list() # generate several lists to be filled later
     header = list()
     matrix = list()
-    for document in wordcounts:
-        header.append(document)
-        for term in wordcounts[document]:
+    for document in wordcounts: 
+        header.append(document) # for every txt file, add the file name to a list called headers
+        for term in wordcounts[document]: # create a unique list containing all terms once
             if term not in wordlist:
                 wordlist.append(term)
-    matrix.append(header)
-    for word in wordlist:
-        row = list()
-        row.append(word)
-        for document in header:
+    matrix.append(header) # add the generated header to the matrix
+    for word in wordlist: # for every unique word, check the frequency of the word in every doc
+        row = list() # reset the list called row
+        row.append(word) # put the unique word in front of the row
+        for document in header: # for every document check if it contains the term
             if word in wordcounts[document]:
                 frequency = wordcounts[document].get(word) # get the frequency from the key from the assoc. dictionary
                 row.append(frequency)
             else:
-                row.append(0)
+                row.append(0) # insert 0 for the current document if it does not contain the word
         matrix.append(row)
     header.insert(0, "")
     return matrix
 
+def calcdf(matrix):
+    wordamount = len(matrix[0])
+    df = dict()
+    for line in range(1, wordamount): # get every line from the matrix
+        current_line = matrix[line]
+        term = current_line[0]
+        worddf = 0
+        for word in range(1, wordamount):
+            current_word = current_line[word]
+            if current_word > 0:
+                worddf += 1
+        df[term] = worddf
+    return df
+
 # EXAMPLE
 doclist = ["test1.txt", "test2.txt", "test3.txt", "test4.txt"]
 folderpath = "test_data"
-dict = gentermfreq(doclist, folderpath)
+dictionary = gentermfreq(doclist, folderpath)
 #print(dict)
-print(generatematrix(dict))
+matrix = generatematrix(dictionary)
+print(calcdf(matrix))
