@@ -1,4 +1,5 @@
 import math as mth
+import csv
 def cleantext(text):
     """This function cleans the supplied text from illegal characters, such as interpunction,
     upper case letters and numbers. It also generates the document term frequencies."""
@@ -112,13 +113,14 @@ def generatetfmatrix(matrix, idf):
         updatedmatrix.append(newrow) # append the filled row to the updated matrix
     return updatedmatrix
 
-def saveastxt(document, name="data/database.txt"):
+def saveastxt(document, name="data/database.csv"):
     """
     Saves the supplied variable as a txt file called `database.txt` by default in the folder data.
     The file name can be changed. The file path needs to be supplied in the `name` variable.
     """
-    with open(name, "w") as output:
-        output.write(str(document))
+    with open(name, "w", newline="") as output:
+        writer = csv.writer(output, delimiter = ';')
+        writer.writerows(document)
 
 # EXAMPLE
 doclist = ["test1.txt", "test2.txt", "test3.txt", "test4.txt"]
