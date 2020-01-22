@@ -59,18 +59,46 @@ def generatematrix(wordcounts):
     return matrix
 
 def calcdf(matrix):
-    wordamount = len(matrix[0])
-    df = dict()
-    for line in range(1, wordamount): # get every line from the matrix
-        current_line = matrix[line]
+    docamount = len(matrix[0]) # get the amount of documents
+    df = dict() # create a new dictionary
+    for line in range(1, docamount): # get every line from the matrix
+        current_line = matrix[line] # get the current line from the matrix
         term = current_line[0]
         worddf = 0
-        for word in range(1, wordamount):
+        for word in range(1, docamount):
             current_word = current_line[word]
-            if current_word > 0:
+            if current_word > 0: # if the value of the term is above zero, add this for the df
                 worddf += 1
-        df[term] = worddf
-    return df
+        df[term] = worddf # save the df for the current term in a dictionary
+    return df, docamount
+
+def calcidf(df):
+    docamount = df[1] - 1 # subtract 
+    docfreq = df[0]
+    idf = dict() # create a new dictionary
+    for term in docfreq: # for every entry in the df, calculate the idf
+        frequency = docfreq.get(term)
+        multiplication = (docamount / frequency)
+        answer = mth.log2(multiplication)
+        idf[term] = answer # save the idf in the dictionary for the current term
+    return idf
+
+def generatetfmatrix(matrix, idf):
+    docamount = len(matrix[0]) # get the amount of documents
+    updatedmatrix = list() # create a new empty matrix
+    updatedmatrix.append(matrix[0]) # set the header in the new matrix
+    for i in range(1, docamount): # do the loop for all documents, excluding the term itself
+        newrow = list() # create a new row for the matrix
+        currentrow = matrix[i] # get the current row from the old matrix
+        currentword = currentrow[0] # from this current row, get the current word
+        wordweight = idf.get(currentword) # from the idf dictionary, get the value corresp. with the current term
+        newrow.append(currentword) # add the current term to the new row
+        for y in range(1, docamount):
+            currentvalue = currentrow[y] # get the current value of the term we are calculating
+            updatedvalue = currentvalue * wordweight # calculate the new value with the weighing applied
+            newrow.append(updatedvalue) # save this new value in the new row
+        updatedmatrix.append(newrow) # append the filled row to the updated matrix
+    return updatedmatrix
 
 # EXAMPLE
 doclist = ["test1.txt", "test2.txt", "test3.txt", "test4.txt"]
@@ -78,4 +106,7 @@ folderpath = "test_data"
 dictionary = gentermfreq(doclist, folderpath)
 #print(dict)
 matrix = generatematrix(dictionary)
-print(calcdf(matrix))
+df = calcdf(matrix)
+idf = calcidf(df)
+b = generatetfmatrix(matrix, idf)
+print(b)
