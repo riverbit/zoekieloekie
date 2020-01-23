@@ -68,7 +68,8 @@ def sim(dotproducts, query, veclen):
     return similarities
 
 def rank(similarities):
+    """Rank the supplied similarities and convert it to a listed list."""
     dfSimi = pd.DataFrame(list(similarities.items())) # get the dictionary into a dataframe
     dfSimi.sort_values(by=[1], inplace=True, ascending=False) # sort the matrix in descending order in the first column
-    return dfSimi
-
+    ranks = dfSimi.values.tolist()
+    return ranks
