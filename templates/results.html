@@ -7,8 +7,8 @@
 		<h1>Zoekopdracht: {{ query }}</h1>
 		<b>Aantal gevonden resultaten: XXXXX</b></br>
 		{% for result in results %}
-		<i>rank: {{ result[0] }} - score: {{ result[1] }} - document: {{ result[2] }}</i></br>
-		{{ result[3] }}</br></br>
+		<i>score: {{ result[1] }} - document: {{ result[0] }}</i></br>
+		Snippit is snipp</br></br>
 		{% endfor %}
 		</form>
 	</body>
