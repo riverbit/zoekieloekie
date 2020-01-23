@@ -32,7 +32,7 @@ def gentermfreq(doclist, folderpath):
     """
     wordcounts = dict()
     for document in doclist:
-        path = folderpath+"/"+document
+        path = folderpath + "/" + document
         file = open(path)
         txt = file.read()
         cleanedtxt = cleantext(txt)  # returns the document term frequency
@@ -53,7 +53,11 @@ def generatematrix(wordcounts):
             if term not in wordlist:
                 wordlist.append(term)
     matrix.append(header)  # add the generated header to the matrix
-    for word in wordlist:  # for every unique word, check the frequency of the word in every doc
+    for (
+        word
+    ) in (
+        wordlist
+    ):  # for every unique word, check the frequency of the word in every doc
         row = list()  # reset the list called row
         row.append(word)  # put the unique word in front of the row
         for document in header:  # for every document check if it contains the term
@@ -82,7 +86,9 @@ def calcdf(matrix):
         worddf = 0
         for word in range(1, docamount):
             current_word = current_line[word]
-            if current_word > 0:  # if the value of the term is above zero, add this for the df
+            if (
+                current_word > 0
+            ):  # if the value of the term is above zero, add this for the df
                 worddf += 1
         df[term] = worddf  # save the df for the current term in a dictionary
     return df, docamount
@@ -98,7 +104,7 @@ def calcidf(df):
     idf = dict()  # create a new dictionary
     for term in docfreq:  # for every entry in the df, calculate the idf
         frequency = docfreq.get(term)
-        multiplication = (docamount / frequency)
+        multiplication = docamount / frequency
         answer = mth.log2(multiplication)
         idf[term] = answer  # save the idf in the dictionary for the current term
     return idf
@@ -112,7 +118,9 @@ def generatetfmatrix(matrix, idf):
     docamount = len(matrix[0])  # get the amount of documents
     updatedmatrix = list()  # create a new empty matrix
     updatedmatrix.append(matrix[0])  # set the header in the new matrix
-    for i in range(1, docamount):  # do the loop for all documents, excluding the term itself
+    for i in range(
+        1, docamount
+    ):  # do the loop for all documents, excluding the term itself
         newrow = list()  # create a new row for the matrix
         currentrow = matrix[i]  # get the current row from the old matrix
         # from this current row, get the current word
@@ -137,7 +145,7 @@ def saveastxt(document, name="data/database.csv"):
     The file name can be changed. The file path needs to be supplied in the `name` variable.
     """
     with open(name, "w", newline="") as output:
-        writer = csv.writer(output, delimiter=';')
+        writer = csv.writer(output, delimiter=";")
         writer.writerows(document)
 
 
