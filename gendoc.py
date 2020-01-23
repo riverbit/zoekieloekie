@@ -1,5 +1,5 @@
-import math as mth
 import csv
+import math as mth
 
 
 def cleantext(text):
