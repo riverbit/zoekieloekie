@@ -7,6 +7,9 @@ from flask import render_template
 from flask import request
 app = Flask(__name__)
 
+@app.route('/test')
+def test():
+    return render_template('index.html')
 
 @app.route('/')
 def home():
@@ -23,7 +26,7 @@ def results():
     similarities = sim(dotproducts, splitquery, vectorlength)
     results = rank(similarities)
     print(results)
-    return render_template('results.html', query = query, results = results)
+    return render_template('return.html', query = query, results = results)
 
 if __name__ == "__main__":
     app.config['TEMPLATES_AUTO_RELOAD']=True
