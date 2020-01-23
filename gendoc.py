@@ -115,7 +115,7 @@ def generatetfmatrix(matrix, idf):
 
 def saveastxt(document, name="data/database.csv"):
     """
-    Saves the supplied variable as a txt file called `database.txt` by default in the folder data.
+    Saves the supplied variable as csv txt file called `database.csv` by default in the folder data.
     The file name can be changed. The file path needs to be supplied in the `name` variable.
     """
     with open(name, "w", newline="") as output:
