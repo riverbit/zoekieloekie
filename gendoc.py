@@ -27,7 +27,7 @@ def cleantext(text):
 
 def gentermfreq(doclist, folderpath):
     """
-    Function generates a term frequency matrix for the documents provided in the list 
+    Function generates a term frequency matrix for the documents provided in the list
     `doclist`. The `folderpath` to the folder containing the documents needs to be provided.
     """
     wordcounts = dict()
