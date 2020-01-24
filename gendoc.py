@@ -19,13 +19,13 @@ def cleantext(text):
     words = cleanedtext.split()  # splits the cleaned text into words
     
 
-    word_frequencies = dict()
-    for i in words:
-        if i in word_frequencies:
+    word_frequencies = dict() # create a new empty dictionary
+    for i in words: # check for every word if it is in the dictionary
+        if i in word_frequencies: # if in dictionary, add 1 to the total
             word_frequencies[i] += 1
         else:
             if i not in stopwords:
-                word_frequencies[i] = 1
+                word_frequencies[i] = 1 # if not, add entry to dict
     return word_frequencies
 
 
