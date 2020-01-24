@@ -7,6 +7,7 @@ from nltk.stem import PorterStemmer
 from nltk.tokenize import sent_tokenize, word_tokenize
 ps = PorterStemmer()
 
+
 def cleantext(text):
     """This function cleans the supplied text from illegal characters, such as interpunction,
     upper case letters and numbers. It also generates the document term frequencies."""
@@ -15,21 +16,21 @@ def cleantext(text):
     cleanedtext = ""
     illegal_chars = [",", ".", "'"]
     stop = set(stopwords.words('english'))
-    for i in text: # loop every character
+    for i in text:  # loop every character
         i = i.lower()  # make text lower case
         # check if the variable is in the illegal chars list or a number
         if i not in illegal_chars and not i.isnumeric():
             cleanedtext += i
     words = cleanedtext.split()  # splits the cleaned text into words
-    
-    word_frequencies = dict() # create a new empty dictionary
-    for i in words: # check for every word if it is in the dictionary
+
+    word_frequencies = dict()  # create a new empty dictionary
+    for i in words:  # check for every word if it is in the dictionary
         i = ps.stem(i)
-        if i in word_frequencies: # if in dictionary, add 1 to the total
+        if i in word_frequencies:  # if in dictionary, add 1 to the total
             word_frequencies[i] += 1
         else:
             if i not in stop:
-                word_frequencies[i] = 1 # if not, add entry to dict
+                word_frequencies[i] = 1  # if not, add entry to dict
     return word_frequencies
 
 
