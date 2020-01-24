@@ -1,0 +1,30 @@
+The New York Times:
+Text 1 - https://www.nytimes.com/2020/01/21/business/boeing-737-max.html?searchResultPosition=4
+Text 2 - https://www.nytimes.com/2020/01/09/business/boeing-737-messages.html?searchResultPosition=5
+Text 3 - https://www.nytimes.com/2020/01/05/business/boeing-737-max.html?searchResultPosition=11
+Text 4 - https://www.nytimes.com/2019/12/16/business/boeing-737-max.html?searchResultPosition=29
+
+The Guardian:
+Text 5 - https://www.theguardian.com/business/2019/dec/16/boeing-737-max-production-faa
+Text 6 - https://www.theguardian.com/commentisfree/2019/nov/06/boeing-boss-737-max-crashes-consumer-confidence
+Text 7 - https://www.theguardian.com/business/2019/oct/08/boeing-737-max-european-regulators-more-testing
+
+BBC:
+Text 8 - https://www.bbc.com/news/business-50151573
+Text 9 - https://www.bbc.com/news/business-49108807
+Text 10 - https://www.bbc.com/news/business-48630188
+
+The New York Times:
+Text 11 - https://www.nytimes.com/2019/02/07/business/qantas-cancels-a380.html
+Text 12 - https://www.nytimes.com/2019/02/13/world/europe/strike-in-belgium.html?searchResultPosition=4
+
+The Guardian:
+Text 13 - https://www.theguardian.com/environment/ng-interactive/2019/jul/19/carbon-calculator-how-taking-one-flight-emits-as-much-as-many-people-do-in-a-year
+Text 14 - https://www.theguardian.com/business/2020/jan/07/faa-ban-iran-iraq-us-airlines
+
+BBC:
+Text 15 - https://www.bbc.com/news/world-asia-india-47973934
+
+
+
+

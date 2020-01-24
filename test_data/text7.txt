@@ -1,0 +1,33 @@
+Boeing 737 Max: European regulators insist on more testing of troubled plane
+
+FAA told EU counterpart not satisfied with safety demonstrations
+
+Aircraft systems reconfigured after two fatal crashes
+
+European air safety regulators have told their US counterpart they want more testing on fixes to the troubled 737 Max flight-control systems before the plane is cleared to re-enter service.
+
+According to the Wall Street Journal, the EU’s Aviation Safety Agency (EASA) told the Federal Aviation Authority (FAA) it was not satisfied with demonstrations of the reconfigured safety systems on the planes, which were involved in two crashes in Indonesia and Ethiopia that killed 346 people.
+
+Boeing had initially scheduled the plane to re-enter service at the end of August but disagreements over software details, centered on how the plane’s dual flight-control computers are now intended to start working together, have put that date back to at least the end of November.
+
+The aim, according to the Journal, is to add redundancy by having both computers work simultaneously to eliminate potential problems stemming from computer chip malfunctions.
+
+The issue is separate from changes to the aircraft’s faulty Maneuvering Characteristics Augmentation System (MCAS) but related to an emergency procedure that can be used by pilots to address the plane’s system malfunctions.
+
+Over the past months, Boeing and regulators have agreed on software revisions to MCAS designed to scale back the power, and reduce the likelihood of the system kicking in and forcing the plane’s nose down.
+
+Last week Boeing’s CEO, Dennis Muilenburg, said test pilots had completed more than 700 Max flights.
+
+“We are very confident in that software solution, and we are now just marching through the final steps on certifying that, so that everybody’s confident in the safety of the airplane,” he said at a public appearance in New York.
+
+The new issue was identified during tests in June when a test pilot found that the procedure took more time than was acceptable to execute.
+
+A spokesman for the aircraft maker said: “We continue to work with regulators on addressing their concerns and working through the process for certifying the 737 Max software and training updates and safely returning the airplane to service.”
+
+The latest problems for Boeing come as pilots for Southwest Airlines, one of the largest operators of the troubled jet, sued the company, claiming the grounding of the 737 Max jets with the loss of 30,000 scheduled flights has cost them more than $100m in pay.
+
+In court papers, Southwest’s pilots association accusing Boeing of lying when it said the planes were just as safe as their predecessors.
+
+“Our pilots should not be expected to take a significant and ever-expanding financial loss as a result of Boeing’s negligence,” Jon Weaks, the union’s president, said in a statement. In total, 387 737 Max flown by 60 airlines are grounded.
+
+Boeing’s stock has dropped 11% since the 737 Max was grounded in March, costing the company $27bn in market capitalization. Before the crashes, the plane accounted for nearly 70% of Boeing’s overall commercial aircraft deliveries, and 30% of its total operating profit.
