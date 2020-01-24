@@ -65,10 +65,8 @@ def generatematrix(wordcounts):
             if term not in wordlist:
                 wordlist.append(term)
     matrix.append(header)  # add the generated header to the matrix
-    for (
-        word
-    ) in (
-        wordlist
+    for (word) in (
+            wordlist
     ):  # for every unique word, check the frequency of the word in every doc
         row = list()  # reset the list called row
         row.append(word)  # put the unique word in front of the row
@@ -99,7 +97,7 @@ def calcdf(matrix):
         for word in range(1, docamount):
             current_word = current_line[word]
             if (
-                current_word > 0
+                    current_word > 0
             ):  # if the value of the term is above zero, add this for the df
                 worddf += 1
         df[term] = worddf  # save the df for the current term in a dictionary
@@ -131,7 +129,7 @@ def generatetfmatrix(matrix, idf):
     updatedmatrix = list()  # create a new empty matrix
     updatedmatrix.append(matrix[0])  # set the header in the new matrix
     for i in range(
-        1, docamount
+            1, docamount
     ):  # do the loop for all documents, excluding the term itself
         newrow = list()  # create a new row for the matrix
         currentrow = matrix[i]  # get the current row from the old matrix
