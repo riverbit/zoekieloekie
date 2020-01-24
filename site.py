@@ -23,8 +23,8 @@ def home():
 def results():
     rawquery = request.form["query"]
     query = reformquery(rawquery)
-    if not query: # if the adjusted query is empty, do not continue
-        return render_template("error.html", reason = "your query did not return any results")
+    if not query:  # if the adjusted query is empty, do not continue
+        return render_template("error.html", reason="your query did not return any results")
     else:
         dataframe = opendoc("data/database.csv")
         twmatrix = generatesqrmatrix(dataframe)
@@ -35,7 +35,7 @@ def results():
         firstresult = results[0]
         print(firstresult[1])
         if firstresult[1] == 0.0:
-            return render_template("error.html", reason = "your query did not return any results. If in doubt, search \"Boeing\"") 
+            return render_template("error.html", reason="your query did not return any results. If in doubt, search \"Boeing\"")
         else:
             return render_template("return.html", query=rawquery, results=results)
 

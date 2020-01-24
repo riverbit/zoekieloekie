@@ -20,7 +20,8 @@ def cleantext(text):
     stop = set(stopwords.words("english"))
     for i in text:  # loop every character
         i = i.lower()  # make text lower case
-        i = i.encode('ascii',errors='ignore').decode() # get the code to ASCII so pandas does not panic
+        # get the code to ASCII so pandas does not panic
+        i = i.encode('ascii', errors='ignore').decode()
         # check if the variable is in the illegal chars list or a number
         if i not in illegal_chars and not i.isnumeric():
             cleanedtext += i
@@ -97,8 +98,8 @@ def calcdf(matrix):
         worddf = 0
         for word in range(1, docamount):
             current_word = current_line[word]
-            if (current_word > 0):  
-            # if the value of the term is above zero, add this for the df
+            if (current_word > 0):
+                # if the value of the term is above zero, add this for the df
                 worddf += 1
         df[term] = worddf  # save the df for the current term in a dictionary
     return df, docamount
@@ -129,7 +130,7 @@ def generatetfmatrix(matrix, idf):
     wordcount = len(matrix)
     updatedmatrix = list()  # create a new empty matrix
     updatedmatrix.append(matrix[0])  # set the header in the new matrix
-    for i in range(1, wordcount):  
+    for i in range(1, wordcount):
         # do the loop for all documents, excluding the term itself
         newrow = list()  # create a new row for the matrix
         currentrow = matrix[i]  # get the current row from the old matrix
@@ -160,13 +161,14 @@ def saveastxt(document, name="data/database.csv"):
 
 
 # EXAMPLE
-doclist = ["text1.txt", "text2.txt", "text3.txt", "text4.txt", "text5.txt", "text6.txt", "text7.txt", "text8.txt", "text9.txt", "text10.txt", "text11.txt", "text12.txt", "text13.txt", "text14.txt", "text15.txt"]
+doclist = ["text1.txt", "text2.txt", "text3.txt", "text4.txt", "text5.txt", "text6.txt", "text7.txt",
+           "text8.txt", "text9.txt", "text10.txt", "text11.txt", "text12.txt", "text13.txt", "text14.txt", "text15.txt"]
 folderpath = "test_data"
 dictionary = gentermfreq(doclist, folderpath)
 matrix = generatematrix(dictionary)
 df = calcdf(matrix)
-#print(df)
+# print(df)
 idf = calcidf(df)
 b = generatetfmatrix(matrix, idf)
-#print(b)
+# print(b)
 saveastxt(b)
