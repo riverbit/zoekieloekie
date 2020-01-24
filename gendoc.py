@@ -9,19 +9,23 @@ def cleantext(text):
     # Remove illegal characters from the text
     cleanedtext = ""
     illegal_chars = [",", ".", "'"]
+    stopwords = ['ben', 'hebben', 'zal', 'geen', 'eens', 'men', 'je', 'niets', 'hoe', 'zou', 'iemand', 'zich', 'over', 'ook', 'heb', 'nu', 'werd', 'mijn', 'doen', 'hier', 'wezen', 'doch', 'kan', 'hij', 'deze', 'tot', 'toen', 'dus', 'er', 'bij', 'door', 'mij', 'op', 'moet', 'geweest', 'tegen', 'de', 'ze', 'dan', 'iets', 'ik', 'uw', 'der', 'had', 'nog', 'een', 'zo', 'dat', 'maar', 'die', 'om', 'of', 'van', 'naar', 'andere', 'hem', 'u', 'daar', 'kunnen',
+'met', 'ge', 'zonder', 'dit', 'na', 'al', 'zelf', 'onder', 'altijd', 'omdat', 'in', 'ja', 'want', 'veel', 'ons', 'me', 'te', 'niet', 'hun', 'het', 'als', 'waren', 'kon', 'haar', 'reeds', 'is', 'was', 'wat', 'heeft', 'en', 'zijn', 'wil', 'uit', 'wordt', 'toch', 'aan', 'meer', 'alles', 'wie', 'zij', 'voor', 'worden']
     for i in text:
         i = i.lower()  # make text lower case
         # check if the variable is in the illegal chars list or a number
         if i not in illegal_chars and not i.isnumeric():
             cleanedtext += i
     words = cleanedtext.split()  # splits the cleaned text into words
+    
 
     word_frequencies = dict()
     for i in words:
         if i in word_frequencies:
             word_frequencies[i] += 1
         else:
-            word_frequencies[i] = 1
+            if i not in stopwords:
+                word_frequencies[i] = 1
     return word_frequencies
 
 
