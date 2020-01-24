@@ -70,18 +70,8 @@ def sim(dotproducts, query, veclen):
     return similarities
 
 def rank(similarities):
+    """Rank the supplied similarities and convert it to a listed list."""
     dfSimi = pd.DataFrame(list(similarities.items())) # get the dictionary into a dataframe
     dfSimi.sort_values(by=[1], inplace=True, ascending=False) # sort the matrix in descending order in the first column
-    return dfSimi
-
- 
-dataframe = opendoc("test_data/test.csv")
-print("Dataframe", dataframe[0])
-twmatrix = generatesqrmatrix(dataframe)
-print("Matrix:", twmatrix)
-vectorlength = (generatedveclen(twmatrix))
-print("Vectorlength", vectorlength)
-query = ['ei', 'tomaat']
-dotproducts = getdotprod(query, dataframe)
-similarities = sim(dotproducts, query, vectorlength)
-print(rank(similarities))
+    ranks = dfSimi.values.tolist()
+    return ranks
