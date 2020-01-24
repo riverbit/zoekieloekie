@@ -10,7 +10,7 @@ Expect most of the press attention to be focussed on Boeing's CEO Dennis Muilenb
 
 Piling on the pressure facing Boeing executives, just this week a US Federal Aviation Administration (FAA) official indicated that airlines' fleets of Boeing 737 Max aircraft might be grounded until the end of the year - longer than many had been expecting.
 
-"The highest priority for us is the 737 Max's safe return to service," said Mr Muilenburg recently. Indeed, it has been a key seller for the US firm, which has roughly 4,500 unfulfilled orders for the aircraft. 
+"The highest priority for us is the 737 Max's safe return to service," said Mr Muilenburg recently. Indeed, it has been a key seller for the US firm, which has roughly 4,500 unfulfilled orders for the aircraft.
 
 For Airbus - under new CEO Guillaume Faury - it is the first airshow at Le Bourget since it made the decision to end production of its flagship A380. But the much-heralded unveiling of its A321XLR, is likely to garner positive headlines.
 
@@ -18,7 +18,7 @@ This is a single-aisle long-range airliner which Airbus hopes will generate new 
 
 For Airbus this is possibly a strategy to counter Boeing's eventual NMA (New Midsize Aircraft) that the US firm has been working on. The twin-aisled NMA, also labelled the 797, has been designed in two variants: a 225-seat plane with a 9,300km (5,700 mile) range and a 275-seater flying 8,300km.
 
-However, unlike Airbus's A321XLR this would be a totally new aircraft - so it would take a lot longer to see the light of day. 
+However, unlike Airbus's A321XLR this would be a totally new aircraft - so it would take a lot longer to see the light of day.
 
 Away from the marketing battle between Airbus and Boeing, there will be more focus on unmanned aircraft, lighter and stronger alloys and composite materials - but the most significant developments may well be developments in hybrid and all-electric aircraft engines.
 
@@ -26,7 +26,7 @@ US firm magniX is showing off two of its electric motors at the show. It is work
 
 MagniX says it wants to transform the "middle mile" segment of the market - that's cargo and passenger flights up to 1,000 miles (1,600km). "As we debut our propulsion system at the Paris Airshow, we're one step closer to all-electric air transport starting in 2022," says magniX chief executive Roei Ganzarski.
 
-All makers are keenly aware of the need to reduce CO2 emissions - commercial flights account for 2.5% of global greenhouse gasses. But as air passenger numbers double - even with battery-powered aircraft, alternative fuels and lighter materials, the goal of reducing overall CO2 emissions in the aviation sector remains as challenging as ever. 
+All makers are keenly aware of the need to reduce CO2 emissions - commercial flights account for 2.5% of global greenhouse gasses. But as air passenger numbers double - even with battery-powered aircraft, alternative fuels and lighter materials, the goal of reducing overall CO2 emissions in the aviation sector remains as challenging as ever.
 
 The sector has also seen significant business changes recently. Canadian-based manufacturer Bombardier has quit the commercial airliner business.
 

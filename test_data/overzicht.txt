@@ -24,7 +24,3 @@ Text 14 - https://www.theguardian.com/business/2020/jan/07/faa-ban-iran-iraq-us-
 
 BBC:
 Text 15 - https://www.bbc.com/news/world-asia-india-47973934
-
-
-
-
