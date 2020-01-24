@@ -16,13 +16,13 @@ def cleantext(text):
     upper case letters and numbers. It also generates the document term frequencies."""
     # Remove illegal characters from the text
     cleanedtext = ""
-    isascii = lambda s: len(s) == len(s.encode())
-    illegal_chars = [",", ".", "'", "\"", "\n", "\r", "’", "”", "’", "“", "—", "–", "‘", "…", "[", "]", "(", ")", "£", "$"]
+    illegal_chars = [",", ".", "'", "\"", "\n", "\r", "£", "$"]
     stop = set(stopwords.words("english"))
     for i in text:  # loop every character
         i = i.lower()  # make text lower case
+        i = i.encode('ascii',errors='ignore').decode() # get the code to ASCII so pandas does not panic
         # check if the variable is in the illegal chars list or a number
-        if i not in illegal_chars and not i.isnumeric() and isascii:
+        if i not in illegal_chars and not i.isnumeric():
             cleanedtext += i
     words = cleanedtext.split()  # splits the cleaned text into words
 
