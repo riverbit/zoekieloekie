@@ -17,7 +17,7 @@ def cleantext(text):
     # Remove illegal characters from the text
     cleanedtext = ""
     isascii = lambda s: len(s) == len(s.encode())
-    illegal_chars = [",", ".", "'", "\"", "\n", "\r", "’", "”", "’", "“", "‘", "…", "[", "]", "(", ")", "£", "$"]
+    illegal_chars = [",", ".", "'", "\"", "\n", "\r", "’", "”", "’", "“", "—", "–", "‘", "…", "[", "]", "(", ")", "£", "$"]
     stop = set(stopwords.words("english"))
     for i in text:  # loop every character
         i = i.lower()  # make text lower case
