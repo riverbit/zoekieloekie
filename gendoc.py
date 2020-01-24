@@ -16,12 +16,12 @@ def cleantext(text):
     upper case letters and numbers. It also generates the document term frequencies."""
     # Remove illegal characters from the text
     cleanedtext = ""
-    illegal_chars = [",", ".", "'", "\"", "\n", "\r", "£", "$"]
+    illegal_chars = [",", ".", "'", '"', "\n", "\r", "£", "$"]
     stop = set(stopwords.words("english"))
     for i in text:  # loop every character
         i = i.lower()  # make text lower case
         # get the code to ASCII so pandas does not panic
-        i = i.encode('ascii', errors='ignore').decode()
+        i = i.encode("ascii", errors="ignore").decode()
         # check if the variable is in the illegal chars list or a number
         if i not in illegal_chars and not i.isnumeric():
             cleanedtext += i
@@ -66,8 +66,10 @@ def generatematrix(wordcounts):
             if term not in wordlist:
                 wordlist.append(term)
     matrix.append(header)  # add the generated header to the matrix
-    for (word) in (
-            wordlist
+    for (
+        word
+    ) in (
+        wordlist
     ):  # for every unique word, check the frequency of the word in every doc
         row = list()  # reset the list called row
         row.append(word)  # put the unique word in front of the row
@@ -98,7 +100,7 @@ def calcdf(matrix):
         worddf = 0
         for word in range(1, docamount):
             current_word = current_line[word]
-            if (current_word > 0):
+            if current_word > 0:
                 # if the value of the term is above zero, add this for the df
                 worddf += 1
         df[term] = worddf  # save the df for the current term in a dictionary
@@ -161,8 +163,23 @@ def saveastxt(document, name="data/database.csv"):
 
 
 # EXAMPLE
-doclist = ["text1.txt", "text2.txt", "text3.txt", "text4.txt", "text5.txt", "text6.txt", "text7.txt",
-           "text8.txt", "text9.txt", "text10.txt", "text11.txt", "text12.txt", "text13.txt", "text14.txt", "text15.txt"]
+doclist = [
+    "text1.txt",
+    "text2.txt",
+    "text3.txt",
+    "text4.txt",
+    "text5.txt",
+    "text6.txt",
+    "text7.txt",
+    "text8.txt",
+    "text9.txt",
+    "text10.txt",
+    "text11.txt",
+    "text12.txt",
+    "text13.txt",
+    "text14.txt",
+    "text15.txt",
+]
 folderpath = "test_data"
 dictionary = gentermfreq(doclist, folderpath)
 matrix = generatematrix(dictionary)
