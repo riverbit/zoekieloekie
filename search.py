@@ -10,16 +10,20 @@ def opendoc(doc):
     csv = pd.read_csv(doc, delimiter=";")
     # the amount of documents in the dataframe is returned. One is subtracted since the first cell is empty
     docamount = csv.shape[1] - 1
-    return(csv, docamount)
+    return (csv, docamount)
 
 
 def generatesqrmatrix(dataframe):
     """Generates a squared weighted term matrix from a `dataframe`. Returns the updated weighted term matrix."""
     dataframe = dataframe[0]  # get the first entry from the tuple
     dataframesqr = dataframe.copy()
-    for tuple in dataframesqr.itertuples():  # create a tuple from every line in the dataframe
+    for (
+        tuple
+    ) in dataframesqr.itertuples():  # create a tuple from every line in the dataframe
         tuplen = len(tuple)  # get the length of the tuple
-        for i in range(2, tuplen):  # for every digit in the tuple (starting from 2), do the loop
+        for i in range(
+            2, tuplen
+        ):  # for every digit in the tuple (starting from 2), do the loop
             tupvalue = tuple[i]
             if type(tupvalue) is not str:  # check if it is a float or integer
                 # get the current row which is the first item in the tuple
@@ -58,10 +62,16 @@ def getdotprod(query, dataframe):
     dotproducts = dict()
     for i in range(1, length):
         # copy the existing dataframe to a new dataframe called currentframe
-        currentframe = df[['Unnamed: 0', headers[i]]].copy()
+        currentframe = df[["Unnamed: 0", headers[i]]].copy()
         totalscore = 0
-        for tuple in currentframe.itertuples():  # create a tuple from every line in the dataframe
-            if tuple[1] in query:  # if the term is in the query, add the frequency to the totalscore
+        for (
+            tuple
+        ) in (
+            currentframe.itertuples()
+        ):  # create a tuple from every line in the dataframe
+            if (
+                tuple[1] in query
+            ):  # if the term is in the query, add the frequency to the totalscore
                 totalscore += tuple[2]
         # add the totalscore to a dictionary
         dotproducts[headers[i]] = totalscore
@@ -83,7 +93,7 @@ def sim(dotproducts, query, veclen):
         # get the square root of the query length
         sqrtquerylength = mth.sqrt(querylength)
         # calculate the cosine similarity
-        calculation = (dotproduct / (vectorlength * sqrtquerylength))
+        calculation = dotproduct / (vectorlength * sqrtquerylength)
         # add the result to the dictionary for the current word
         similarities[item] = calculation
     return similarities
@@ -91,8 +101,9 @@ def sim(dotproducts, query, veclen):
 
 def rank(similarities):
     """Rank the supplied similarities and convert it to a listed list."""
-    dfSimi = pd.DataFrame(list(similarities.items())
-                          )  # get the dictionary into a dataframe
+    dfSimi = pd.DataFrame(
+        list(similarities.items())
+    )  # get the dictionary into a dataframe
     # sort the matrix in descending order in the first column
     dfSimi.sort_values(by=[1], inplace=True, ascending=False)
     ranks = dfSimi.values.tolist()
