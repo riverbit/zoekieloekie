@@ -1,31 +1,39 @@
 import csv
 import math as mth
 
+import nltk
+from nltk import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+from nltk.tokenize import sent_tokenize
+from nltk.tokenize import word_tokenize
+
+ps = PorterStemmer()
+
 
 def cleantext(text):
     """This function cleans the supplied text from illegal characters, such as interpunction,
     upper case letters and numbers. It also generates the document term frequencies."""
-    # TO DO ADD STEMMING
     # Remove illegal characters from the text
     cleanedtext = ""
-    illegal_chars = [",", ".", "'"]
-    stopwords = ['ben', 'hebben', 'zal', 'geen', 'eens', 'men', 'je', 'niets', 'hoe', 'zou', 'iemand', 'zich', 'over', 'ook', 'heb', 'nu', 'werd', 'mijn', 'doen', 'hier', 'wezen', 'doch', 'kan', 'hij', 'deze', 'tot', 'toen', 'dus', 'er', 'bij', 'door', 'mij', 'op', 'moet', 'geweest', 'tegen', 'de', 'ze', 'dan', 'iets', 'ik', 'uw', 'der', 'had', 'nog', 'een', 'zo', 'dat', 'maar', 'die', 'om', 'of', 'van', 'naar', 'andere', 'hem', 'u', 'daar', 'kunnen',
-'met', 'ge', 'zonder', 'dit', 'na', 'al', 'zelf', 'onder', 'altijd', 'omdat', 'in', 'ja', 'want', 'veel', 'ons', 'me', 'te', 'niet', 'hun', 'het', 'als', 'waren', 'kon', 'haar', 'reeds', 'is', 'was', 'wat', 'heeft', 'en', 'zijn', 'wil', 'uit', 'wordt', 'toch', 'aan', 'meer', 'alles', 'wie', 'zij', 'voor', 'worden']
-    for i in text:
+    illegal_chars = [",", ".", "'", "\"", "\n", "\r", "£", "$"]
+    stop = set(stopwords.words("english"))
+    for i in text:  # loop every character
         i = i.lower()  # make text lower case
+        i = i.encode('ascii',errors='ignore').decode() # get the code to ASCII so pandas does not panic
         # check if the variable is in the illegal chars list or a number
         if i not in illegal_chars and not i.isnumeric():
             cleanedtext += i
     words = cleanedtext.split()  # splits the cleaned text into words
-    
 
-    word_frequencies = dict() # create a new empty dictionary
-    for i in words: # check for every word if it is in the dictionary
-        if i in word_frequencies: # if in dictionary, add 1 to the total
+    word_frequencies = dict()  # create a new empty dictionary
+    for i in words:  # check for every word if it is in the dictionary
+        i = ps.stem(i)
+        if i in word_frequencies:  # if in dictionary, add 1 to the total
             word_frequencies[i] += 1
         else:
-            if i not in stopwords:
-                word_frequencies[i] = 1 # if not, add entry to dict
+            if i not in stop:
+                word_frequencies[i] = 1  # if not, add entry to dict
     return word_frequencies
 
 
@@ -82,15 +90,15 @@ def calcdf(matrix):
     """
     docamount = len(matrix[0])  # get the amount of documents
     df = dict()  # create a new dictionary
-    for line in range(1, docamount):  # get every line from the matrix
+    wordcount = len(matrix)
+    for line in range(1, wordcount):  # get every line from the matrix
         current_line = matrix[line]  # get the current line from the matrix
         term = current_line[0]
         worddf = 0
         for word in range(1, docamount):
             current_word = current_line[word]
-            if (
-                    current_word > 0
-            ):  # if the value of the term is above zero, add this for the df
+            if (current_word > 0):  
+            # if the value of the term is above zero, add this for the df
                 worddf += 1
         df[term] = worddf  # save the df for the current term in a dictionary
     return df, docamount
@@ -118,11 +126,11 @@ def generatetfmatrix(matrix, idf):
     the weighing factors `idf`. Returns a new matrix using lists.
     """
     docamount = len(matrix[0])  # get the amount of documents
+    wordcount = len(matrix)
     updatedmatrix = list()  # create a new empty matrix
     updatedmatrix.append(matrix[0])  # set the header in the new matrix
-    for i in range(
-            1, docamount
-    ):  # do the loop for all documents, excluding the term itself
+    for i in range(1, wordcount):  
+        # do the loop for all documents, excluding the term itself
         newrow = list()  # create a new row for the matrix
         currentrow = matrix[i]  # get the current row from the old matrix
         # from this current row, get the current word
@@ -152,13 +160,13 @@ def saveastxt(document, name="data/database.csv"):
 
 
 # EXAMPLE
-doclist = ["test1.txt", "test2.txt", "test3.txt", "test4.txt"]
+doclist = ["text1.txt", "text2.txt", "text3.txt", "text4.txt", "text5.txt", "text6.txt", "text7.txt", "text8.txt", "text9.txt", "text10.txt", "text11.txt", "text12.txt", "text13.txt", "text14.txt", "text15.txt"]
 folderpath = "test_data"
 dictionary = gentermfreq(doclist, folderpath)
-# print(dict)
 matrix = generatematrix(dictionary)
 df = calcdf(matrix)
+#print(df)
 idf = calcidf(df)
 b = generatetfmatrix(matrix, idf)
-print(b)
+#print(b)
 saveastxt(b)
