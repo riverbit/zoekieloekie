@@ -9,8 +9,109 @@ def cleantext(text):
     # Remove illegal characters from the text
     cleanedtext = ""
     illegal_chars = [",", ".", "'"]
-    stopwords = ['ben', 'hebben', 'zal', 'geen', 'eens', 'men', 'je', 'niets', 'hoe', 'zou', 'iemand', 'zich', 'over', 'ook', 'heb', 'nu', 'werd', 'mijn', 'doen', 'hier', 'wezen', 'doch', 'kan', 'hij', 'deze', 'tot', 'toen', 'dus', 'er', 'bij', 'door', 'mij', 'op', 'moet', 'geweest', 'tegen', 'de', 'ze', 'dan', 'iets', 'ik', 'uw', 'der', 'had', 'nog', 'een', 'zo', 'dat', 'maar', 'die', 'om', 'of', 'van', 'naar', 'andere', 'hem', 'u', 'daar', 'kunnen',
-                 'met', 'ge', 'zonder', 'dit', 'na', 'al', 'zelf', 'onder', 'altijd', 'omdat', 'in', 'ja', 'want', 'veel', 'ons', 'me', 'te', 'niet', 'hun', 'het', 'als', 'waren', 'kon', 'haar', 'reeds', 'is', 'was', 'wat', 'heeft', 'en', 'zijn', 'wil', 'uit', 'wordt', 'toch', 'aan', 'meer', 'alles', 'wie', 'zij', 'voor', 'worden']
+    stopwords = [
+        "ben",
+        "hebben",
+        "zal",
+        "geen",
+        "eens",
+        "men",
+        "je",
+        "niets",
+        "hoe",
+        "zou",
+        "iemand",
+        "zich",
+        "over",
+        "ook",
+        "heb",
+        "nu",
+        "werd",
+        "mijn",
+        "doen",
+        "hier",
+        "wezen",
+        "doch",
+        "kan",
+        "hij",
+        "deze",
+        "tot",
+        "toen",
+        "dus",
+        "er",
+        "bij",
+        "door",
+        "mij",
+        "op",
+        "moet",
+        "geweest",
+        "tegen",
+        "de",
+        "ze",
+        "dan",
+        "iets",
+        "ik",
+        "uw",
+        "der",
+        "had",
+        "nog",
+        "een",
+        "zo",
+        "dat",
+        "maar",
+        "die",
+        "om",
+        "of",
+        "van",
+        "naar",
+        "andere",
+        "hem",
+        "u",
+        "daar",
+        "kunnen",
+        "met",
+        "ge",
+        "zonder",
+        "dit",
+        "na",
+        "al",
+        "zelf",
+        "onder",
+        "altijd",
+        "omdat",
+        "in",
+        "ja",
+        "want",
+        "veel",
+        "ons",
+        "me",
+        "te",
+        "niet",
+        "hun",
+        "het",
+        "als",
+        "waren",
+        "kon",
+        "haar",
+        "reeds",
+        "is",
+        "was",
+        "wat",
+        "heeft",
+        "en",
+        "zijn",
+        "wil",
+        "uit",
+        "wordt",
+        "toch",
+        "aan",
+        "meer",
+        "alles",
+        "wie",
+        "zij",
+        "voor",
+        "worden",
+    ]
     for i in text:
         i = i.lower()  # make text lower case
         # check if the variable is in the illegal chars list or a number
@@ -56,8 +157,10 @@ def generatematrix(wordcounts):
             if term not in wordlist:
                 wordlist.append(term)
     matrix.append(header)  # add the generated header to the matrix
-    for (word) in (
-            wordlist
+    for (
+        word
+    ) in (
+        wordlist
     ):  # for every unique word, check the frequency of the word in every doc
         row = list()  # reset the list called row
         row.append(word)  # put the unique word in front of the row
@@ -88,7 +191,7 @@ def calcdf(matrix):
         for word in range(1, docamount):
             current_word = current_line[word]
             if (
-                    current_word > 0
+                current_word > 0
             ):  # if the value of the term is above zero, add this for the df
                 worddf += 1
         df[term] = worddf  # save the df for the current term in a dictionary
@@ -120,7 +223,7 @@ def generatetfmatrix(matrix, idf):
     updatedmatrix = list()  # create a new empty matrix
     updatedmatrix.append(matrix[0])  # set the header in the new matrix
     for i in range(
-            1, docamount
+        1, docamount
     ):  # do the loop for all documents, excluding the term itself
         newrow = list()  # create a new row for the matrix
         currentrow = matrix[i]  # get the current row from the old matrix
