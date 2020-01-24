@@ -1,5 +1,10 @@
 import pandas as pd
 import math as mth
+from nltk.stem import PorterStemmer
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.corpus import stopwords
+ps = PorterStemmer()
+
 def opendoc(doc): 
     """
     Opens the provided `doc` as a csv readable file with pandas. All data is automatically an integer and can be made a float later.
@@ -75,3 +80,18 @@ def rank(similarities):
     dfSimi.sort_values(by=[1], inplace=True, ascending=False) # sort the matrix in descending order in the first column
     ranks = dfSimi.values.tolist()
     return ranks
+
+def reformquery(query):
+    """Remove the stopwords and apply stemming"""
+    reformedquery = ps.stem(query)
+    stop = set(stopwords.words('english'))
+    words = reformedquery.split()
+    cleanedquery = list()
+    for word in words:
+        if word not in stop:
+            cleanedquery.append(word)
+    return cleanedquery
+
+a = (reformquery("losing money is not nice"))
+print(a)
+print(len(a))

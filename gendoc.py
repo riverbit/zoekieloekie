@@ -10,7 +10,6 @@ ps = PorterStemmer()
 def cleantext(text):
     """This function cleans the supplied text from illegal characters, such as interpunction,
     upper case letters and numbers. It also generates the document term frequencies."""
-    # TO DO ADD STEMMING
     # Remove illegal characters from the text
     cleanedtext = ""
     illegal_chars = [",", ".", "'"]

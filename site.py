@@ -17,7 +17,8 @@ def home():
 
 @app.route('/results', methods=['POST'])
 def results():
-    query = request.form["query"]
+    rawquery = request.form["query"]
+    query = reformquery(rawquery)
     splitquery = query.split()
     dataframe = opendoc("data/database.csv")
     twmatrix = generatesqrmatrix(dataframe)
