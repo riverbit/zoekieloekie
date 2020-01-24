@@ -83,7 +83,7 @@ def rank(similarities):
 
 def reformquery(query):
     """Remove the stopwords and apply stemming"""
-    reformedquery = ps.stem(query)
+    reformedquery = ps.stem(query) # apply stemming to the reformedquery
     stop = set(stopwords.words('english'))
     words = reformedquery.split()
     cleanedquery = list()
@@ -91,7 +91,3 @@ def reformquery(query):
         if word not in stop:
             cleanedquery.append(word)
     return cleanedquery
-
-a = (reformquery("losing money is not nice"))
-print(a)
-print(len(a))

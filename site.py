@@ -27,7 +27,7 @@ def results():
     similarities = sim(dotproducts, splitquery, vectorlength)
     results = rank(similarities)
     print(results)
-    return render_template('return.html', query = query, results = results)
+    return render_template('return.html', query = rawquery, results = results)
 
 if __name__ == "__main__":
     app.config['TEMPLATES_AUTO_RELOAD']=True
