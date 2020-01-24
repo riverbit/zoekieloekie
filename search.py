@@ -38,7 +38,9 @@ def generatedveclen(twmatrix):
     return totals
 
 def getdotprod(query, dataframe):
-    """Calculates the dot product for the `document` provided. The `query` is provided as a list and uses the dataframe to calculate the dot product for this document."""
+    """
+    Calculates the dot product for the `document` provided. The `query` is provided as a list and uses the dataframe to calculate the dot product for this document.
+    """
     df = dataframe[0] # get the first entry from the tuple and name it df
     length = dataframe[1] + 1 # get the amount of documents and add one so the for loop works
     headers = list(dataframe[0])
