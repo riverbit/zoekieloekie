@@ -19,14 +19,12 @@ def home():
 def results():
     rawquery = request.form["query"]
     query = reformquery(rawquery)
-    splitquery = query.split()
     dataframe = opendoc("data/database.csv")
     twmatrix = generatesqrmatrix(dataframe)
     vectorlength = (generatedveclen(twmatrix))
-    dotproducts = getdotprod(splitquery, dataframe)
-    similarities = sim(dotproducts, splitquery, vectorlength)
+    dotproducts = getdotprod(query, dataframe)
+    similarities = sim(dotproducts, query, vectorlength)
     results = rank(similarities)
-    print(results)
     return render_template('return.html', query = rawquery, results = results)
 
 if __name__ == "__main__":
