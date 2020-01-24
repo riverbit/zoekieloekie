@@ -16,12 +16,13 @@ def cleantext(text):
     upper case letters and numbers. It also generates the document term frequencies."""
     # Remove illegal characters from the text
     cleanedtext = ""
-    illegal_chars = [",", ".", "'"]
+    isascii = lambda s: len(s) == len(s.encode())
+    illegal_chars = [",", ".", "'", "\"", "\n", "\r", "’", "”", "’", "“", "‘", "…", "[", "]", "(", ")", "£", "$"]
     stop = set(stopwords.words("english"))
     for i in text:  # loop every character
         i = i.lower()  # make text lower case
         # check if the variable is in the illegal chars list or a number
-        if i not in illegal_chars and not i.isnumeric():
+        if i not in illegal_chars and not i.isnumeric() and isascii:
             cleanedtext += i
     words = cleanedtext.split()  # splits the cleaned text into words
 
@@ -89,7 +90,7 @@ def calcdf(matrix):
     """
     docamount = len(matrix[0])  # get the amount of documents
     df = dict()  # create a new dictionary
-    wordcount = 2110
+    wordcount = len(matrix)
     for line in range(1, wordcount):  # get every line from the matrix
         current_line = matrix[line]  # get the current line from the matrix
         term = current_line[0]
@@ -125,9 +126,10 @@ def generatetfmatrix(matrix, idf):
     the weighing factors `idf`. Returns a new matrix using lists.
     """
     docamount = len(matrix[0])  # get the amount of documents
+    wordcount = len(matrix)
     updatedmatrix = list()  # create a new empty matrix
     updatedmatrix.append(matrix[0])  # set the header in the new matrix
-    for i in range(1, 2110):  
+    for i in range(1, wordcount):  
         # do the loop for all documents, excluding the term itself
         newrow = list()  # create a new row for the matrix
         currentrow = matrix[i]  # get the current row from the old matrix
@@ -166,5 +168,5 @@ df = calcdf(matrix)
 #print(df)
 idf = calcidf(df)
 b = generatetfmatrix(matrix, idf)
-print(b)
+#print(b)
 saveastxt(b)
