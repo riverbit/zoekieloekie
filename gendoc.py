@@ -89,15 +89,15 @@ def calcdf(matrix):
     """
     docamount = len(matrix[0])  # get the amount of documents
     df = dict()  # create a new dictionary
-    for line in range(1, docamount):  # get every line from the matrix
+    wordcount = 2110
+    for line in range(1, wordcount):  # get every line from the matrix
         current_line = matrix[line]  # get the current line from the matrix
         term = current_line[0]
         worddf = 0
         for word in range(1, docamount):
             current_word = current_line[word]
-            if (
-                    current_word > 0
-            ):  # if the value of the term is above zero, add this for the df
+            if (current_word > 0):  
+            # if the value of the term is above zero, add this for the df
                 worddf += 1
         df[term] = worddf  # save the df for the current term in a dictionary
     return df, docamount
@@ -127,9 +127,8 @@ def generatetfmatrix(matrix, idf):
     docamount = len(matrix[0])  # get the amount of documents
     updatedmatrix = list()  # create a new empty matrix
     updatedmatrix.append(matrix[0])  # set the header in the new matrix
-    for i in range(
-            1, docamount
-    ):  # do the loop for all documents, excluding the term itself
+    for i in range(1, 2110):  
+        # do the loop for all documents, excluding the term itself
         newrow = list()  # create a new row for the matrix
         currentrow = matrix[i]  # get the current row from the old matrix
         # from this current row, get the current word
@@ -159,12 +158,12 @@ def saveastxt(document, name="data/database.csv"):
 
 
 # EXAMPLE
-doclist = ["test1.txt", "test2.txt", "test3.txt", "test4.txt"]
+doclist = ["text1.txt", "text2.txt", "text3.txt", "text4.txt", "text5.txt", "text6.txt", "text7.txt", "text8.txt", "text9.txt", "text10.txt", "text11.txt", "text12.txt", "text13.txt", "text14.txt", "text15.txt"]
 folderpath = "test_data"
 dictionary = gentermfreq(doclist, folderpath)
-# print(dict)
 matrix = generatematrix(dictionary)
 df = calcdf(matrix)
+#print(df)
 idf = calcidf(df)
 b = generatetfmatrix(matrix, idf)
 print(b)
