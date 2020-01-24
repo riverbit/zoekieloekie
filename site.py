@@ -23,13 +23,16 @@ def home():
 def results():
     rawquery = request.form["query"]
     query = reformquery(rawquery)
-    dataframe = opendoc("data/database.csv")
-    twmatrix = generatesqrmatrix(dataframe)
-    vectorlength = generatedveclen(twmatrix)
-    dotproducts = getdotprod(query, dataframe)
-    similarities = sim(dotproducts, query, vectorlength)
-    results = rank(similarities)
-    return render_template("return.html", query=rawquery, results=results)
+    if not query: # if the adjusted query is empty, do not continue
+        return render_template("error.html")
+    else:
+        dataframe = opendoc("data/database.csv")
+        twmatrix = generatesqrmatrix(dataframe)
+        vectorlength = generatedveclen(twmatrix)
+        dotproducts = getdotprod(query, dataframe)
+        similarities = sim(dotproducts, query, vectorlength)
+        results = rank(similarities)
+        return render_template("return.html", query=rawquery, results=results)
 
 
 if __name__ == "__main__":
