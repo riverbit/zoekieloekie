@@ -66,10 +66,8 @@ def generatematrix(wordcounts):
             if term not in wordlist:
                 wordlist.append(term)
     matrix.append(header)  # add the generated header to the matrix
-    for (
-        word
-    ) in (
-        wordlist
+    for (word) in (
+            wordlist
     ):  # for every unique word, check the frequency of the word in every doc
         row = list()  # reset the list called row
         row.append(word)  # put the unique word in front of the row
