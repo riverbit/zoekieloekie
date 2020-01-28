@@ -23,11 +23,12 @@ def generatesqrmatrix(dataframe):
     """Generates a squared weighted term matrix from a `dataframe`. Returns the updated weighted term matrix."""
     dataframe = dataframe[0]  # get the first entry from the tuple
     dataframesqr = dataframe.copy()
-    for (tuple) in dataframesqr.itertuples(
-    ):  # create a tuple from every line in the dataframe
+    for (
+        tuple
+    ) in dataframesqr.itertuples():  # create a tuple from every line in the dataframe
         tuplen = len(tuple)  # get the length of the tuple
         for i in range(
-                2, tuplen
+            2, tuplen
         ):  # for every digit in the tuple (starting from 2), do the loop
             tupvalue = tuple[i]
             if type(tupvalue) is not str:  # check if it is a float or integer
@@ -69,10 +70,13 @@ def getdotprod(query, dataframe):
         # copy the existing dataframe to a new dataframe called currentframe
         currentframe = df[["Unnamed: 0", headers[i]]].copy()
         totalscore = 0
-        for (tuple) in (currentframe.itertuples()
-                        ):  # create a tuple from every line in the dataframe
+        for (
+            tuple
+        ) in (
+            currentframe.itertuples()
+        ):  # create a tuple from every line in the dataframe
             if (
-                    tuple[1] in query
+                tuple[1] in query
             ):  # if the term is in the query, add the frequency to the totalscore
                 totalscore += tuple[2]
         # add the totalscore to a dictionary
@@ -103,8 +107,9 @@ def sim(dotproducts, query, veclen):
 
 def rank(similarities):
     """Rank the supplied similarities and convert it to a listed list."""
-    dfSimi = pd.DataFrame(list(
-        similarities.items()))  # get the dictionary into a dataframe
+    dfSimi = pd.DataFrame(
+        list(similarities.items())
+    )  # get the dictionary into a dataframe
     # sort the matrix in descending order in the first column
     dfSimi.sort_values(by=[1], inplace=True, ascending=False)
     ranks = dfSimi.values.tolist()
