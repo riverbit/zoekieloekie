@@ -122,6 +122,7 @@ def reformquery(query):
             cleanedquery.append(word)
     return cleanedquery
 
+
 def getsnipp(query, results, path):
     """
     Returns a snippet for all documents in HTML format, based on the query and the ranked results.
