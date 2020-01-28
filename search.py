@@ -1,4 +1,5 @@
 import math as mth
+
 import pandas as pd
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
@@ -121,6 +122,7 @@ def reformquery(query):
         if word not in stop:
             cleanedquery.append(word)
     return cleanedquery
+
 
 def getsnipp(query, results, path):
     """
