@@ -33,11 +33,12 @@ def results():
         similarities = sim(dotproducts, query, vectorlength)
         results = rank(similarities)
         firstresult = results[0]
-        print(firstresult[1])
+        snippets = getsnipp(rawquery, results, "test_data/")
+        print(snippets)
         if firstresult[1] == 0.0:
             return render_template("error.html", reason = "your query did not return any results. If in doubt, search \"Boeing\"") 
         else:
-            return render_template("return.html", query=rawquery, results=results)
+            return render_template("return.html", query=rawquery, results=results, snippet=snippets)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,4 @@
 import math as mth
-
 import pandas as pd
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
@@ -122,3 +121,37 @@ def reformquery(query):
         if word not in stop:
             cleanedquery.append(word)
     return cleanedquery
+
+def getsnipp(query, results, path):
+    """
+    Returns a snippet for all documents in HTML format, based on the query and the ranked results.
+    The path to the documents also needs to be provided in the format `data/`.
+    """
+    snippets = dict()
+    # loop through every document
+    for document in results:
+        snippettext = ""
+        docname = document[0]
+        filename = path + docname
+        file = open(filename)
+        words = file.read()
+        # every document can now be made a snippet
+        splitwords = words.split()
+        # if the doc does not contain the query word, an except is used
+        try:
+            index = splitwords.index(query)
+            if index > 20:
+                indexstart = index - 20
+                indexend = index + 20
+            else:
+                indexstart = index
+                indexend = index + 25
+        except:
+            snippettext = "Snippet not available at this time"
+        if snippettext is not "Snippet not available at this time":
+            for i in range(indexstart, indexend):
+                # attach the snippet word to the previous snippet words
+                snippettext = snippettext + " " + splitwords[i]
+        # add the snippets to the dictionary under the correct file name
+        snippets[docname] = snippettext
+    return snippets
