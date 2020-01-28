@@ -129,6 +129,7 @@ def getsnipp(query, results, path):
     """
     snippets = dict()
     # loop through every document
+    unaval = "There was no exact match with your query in this document, however it may contain similair words"
     for document in results:
         snippettext = ""
         docname = document[0]
@@ -147,8 +148,8 @@ def getsnipp(query, results, path):
                 indexstart = index
                 indexend = index + 25
         except:
-            snippettext = "Snippet not available at this time"
-        if snippettext is not "Snippet not available at this time":
+            snippettext = unaval
+        if snippettext is not unaval:
             for i in range(indexstart, indexend):
                 # attach the snippet word to the previous snippet words
                 snippettext = snippettext + " " + splitwords[i]

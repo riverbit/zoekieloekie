@@ -36,12 +36,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   <div class="w3-content">
     <div class="w3-twothird">
       <h1>Results for <i>{{ query }}</i></h1>
+	  <p class="w3-text-grey"> A word about our snippets: a snippet is only returned when there is an exact 1:1 match with a term in the document. For example: the query 'airbus' does not return a snippet 'Airbus'. Our proprietary algorithm does apply a similarity-based search. This is why you will still get results for 'airbus' or 'crashes', but no snippet.</p> 
       <h5 class="w3-padding-32">Our results for your query:</h5>
 
       <p>
 		{% for result in results %}
 		<i class="w3-text-grey">score: {{ result[1] }} - document: {{ result[0] }}</i></br>
-		...{{ snippet[result[0]] }} ...<br/><hr/>
+		{{ snippet[result[0]] }}<br/><hr/>
 		{% endfor %}
 		</p>
     </div>
