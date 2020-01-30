@@ -30,7 +30,7 @@ def results():
         sniplocks = getsniplocation(rawquery, results, "test_data/")
         snippets = getsnippet(sniplocks, "test_data/")
         fiveresults = list()
-        for i in range(0,5):
+        for i in range(0, 5):
             fiveresults.append(results[1])
         if firstresult[1] == 0.0:
             return render_template(
