@@ -34,7 +34,8 @@ def results():
         similarities = sim(dotproducts, query, vectorlength)
         results = rank(similarities)
         firstresult = results[0]
-        snippets = getsnipp(rawquery, results, "test_data/")
+        sniplocks = getsniplocation(rawquery, results, "test_data/")
+        snippets = getsnippet(sniplocks, "test_data/")
         if firstresult[1] == 0.0:
             return render_template(
                 "error.html",
