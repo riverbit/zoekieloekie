@@ -35,7 +35,6 @@ def results():
         results = rank(similarities)
         firstresult = results[0]
         snippets = getsnipp(rawquery, results, "test_data/")
-        print(snippets)
         if firstresult[1] == 0.0:
             return render_template(
                 "error.html",
