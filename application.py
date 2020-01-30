@@ -28,6 +28,9 @@ def results():
         firstresult = results[0]
         sniplocks = getsniplocation(rawquery, results, "test_data/")
         snippets = getsnippet(sniplocks, "test_data/")
+        fiveresults = list()
+        for i in range(0,5):
+            fiveresults.append(results[1])
         if firstresult[1] == 0.0:
             return render_template(
                 "error.html",
@@ -37,7 +40,7 @@ def results():
         else:
             return render_template("return.html",
                                    query=rawquery,
-                                   results=results,
+                                   results=fiveresults,
                                    snippet=snippets)
 
 
