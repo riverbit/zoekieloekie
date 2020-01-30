@@ -6,6 +6,7 @@ from search import *
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def home():
     return render_template("landing.html")
@@ -31,8 +32,7 @@ def results():
         if firstresult[1] == 0.0:
             return render_template(
                 "error.html",
-                reason=
-                'your query did not return any results. If in doubt, search "Boeing"',
+                reason='your query did not return any results. If in doubt, search "Boeing"',
             )
         else:
             return render_template("return.html",
