@@ -17,8 +17,9 @@ def results():
     rawquery = request.form["query"]
     query = reformquery(rawquery)
     if not query:  # if the adjusted query is empty, do not continue
-        return render_template("error.html",
-                               reason="your query did not return any results")
+        return render_template(
+            "error.html", reason="your query did not return any results"
+        )
     else:
         dataframe = opendoc("data/database.csv")
         twmatrix = generatesqrmatrix(dataframe)
@@ -38,10 +39,9 @@ def results():
                 reason='your query did not return any results. If in doubt, search "Boeing"',
             )
         else:
-            return render_template("return.html",
-                                   query=rawquery,
-                                   results=fiveresults,
-                                   snippet=snippets)
+            return render_template(
+                "return.html", query=rawquery, results=fiveresults, snippet=snippets
+            )
 
 
 if __name__ == "__main__":
