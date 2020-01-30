@@ -131,9 +131,11 @@ def getsniplocation(query, results, path):
     the format `data/`. The location `0, 0` is returned when the document
     does not contain the query term.
     """
-    # only look for the first word in the query
+    # We only look for the first word in the query
     query = query.split()
     firstword = query[0]
+    firstword = firstword.lower()
+    firstword = ps.stem(firstword)
     sniplocation = dict()
     # The following part loops through all documents and 
     # captures the position of the first occurance.
@@ -142,11 +144,16 @@ def getsniplocation(query, results, path):
         filename = path + docname
         file = open(filename)
         words = file.read()
-        # Every document can now be made a snippet
+        words = words.lower()
         splitwords = words.split()
-        # If the doc does not contain the query word, an except is used
+        stemmedwords = list()
+        for word in splitwords:
+            # Applying stemming to every word in the document
+            stem = ps.stem(word)
+            stemmedwords.append(stem)
+        # An except is used in case the document does not contain the word
         try:
-            index = splitwords.index(firstword) # find the place of the query
+            index = stemmedwords.index(firstword) # find the place of the query
             if index > 20:
                 indexstart = index - 20
                 indexend = index + 20
