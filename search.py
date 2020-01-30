@@ -131,8 +131,8 @@ def reformquery(query):
 
 def getsniplocation(query, results, path):
     """
-    Returns the snippet location for all documents, based on the query and 
-    the ranked results. The path to the documents also needs to be provided in 
+    Returns the snippet location for all documents, based on the query and
+    the ranked results. The path to the documents also needs to be provided in
     the format `data/`. The location `0, 0` is returned when the document
     does not contain the query term.
     """
@@ -178,8 +178,8 @@ def getsniplocation(query, results, path):
 
 def getsnippet(sniplocation, path):
     """
-    Returns a snippet for all documents in dict-form, based on the 
-    snippets location provided with the getsniplocation() function. 
+    Returns a snippet for all documents in dict-form, based on the
+    snippets location provided with the getsniplocation() function.
     """
     snippets = dict()
     unaval = "There was no exact match with your query in this document, however it may contain similair words"
