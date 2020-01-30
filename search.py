@@ -122,3 +122,81 @@ def reformquery(query):
         if word not in stop:
             cleanedquery.append(word)
     return cleanedquery
+
+
+def getsniplocation(query, results, path):
+    """
+    Returns the snippet location for all documents, based on the query and
+    the ranked results. The path to the documents also needs to be provided in
+    the format `data/`. The location `0, 0` is returned when the document
+    does not contain the query term.
+    """
+    # We only look for the first word in the query
+    query = query.split()
+    firstword = query[0]
+    firstword = firstword.lower()
+    firstword = ps.stem(firstword)
+    sniplocation = dict()
+    # The following part loops through all documents and
+    # captures the position of the first occurance.
+    for document in results:
+        docname = document[0]
+        filename = path + docname
+        file = open(filename)
+        words = file.read()
+        words = words.lower()
+        splitwords = words.split()
+        stemmedwords = list()
+        for word in splitwords:
+            # Applying stemming to every word in the document
+            stem = ps.stem(word)
+            stemmedwords.append(stem)
+        # An except is used in case the document does not contain the word
+        try:
+            # find the place of the query
+            index = stemmedwords.index(firstword)
+            if index > 20:
+                indexstart = index - 20
+                indexend = index + 20
+                # It is often easier to get some context from the snippet
+                # this is only possible if the first occurance is not at the
+                # start of the document.
+            else:
+                indexstart = index
+                indexend = index + 25
+            sniplocation[docname] = [indexstart, indexend]
+        except:
+            sniplocation[docname] = [0, 0]
+        file.close()
+    return sniplocation
+
+
+def getsnippet(sniplocation, path):
+    """
+    Returns a snippet for all documents in dict-form, based on the
+    snippets location provided with the getsniplocation() function.
+    """
+    snippets = dict()
+    unaval = "There was no exact match with your query in this document, however it may contain similair words"
+    for document in sniplocation:
+        snippettext = ""  # reset variable
+        positions = sniplocation[document]
+        filename = path + document
+        file = open(filename)
+        words = file.read()
+        splitwords = words.split()
+        indexstart = positions[0]
+        indexend = positions[1]
+        if indexend > 0:
+            # If the doc did not contain the query, the indexend variable
+            # is zero.
+            for i in range(indexstart, indexend):
+                # Attach the snippet word to the previous snippet words
+                snippettext = snippettext + " " + splitwords[i]
+        elif indexend == 0:
+            # Add a placeholder text to the doc without the query.
+            snippettext = unaval
+        # Add the snippets to the dictionary under the correct file name
+        snippets[document] = snippettext
+    file.close()
+    return snippets
