@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+import ast
 
 from search import *
 
@@ -26,6 +27,7 @@ def results():
         dotproducts = getdotprod(query, dataframe)
         similarities = sim(dotproducts, query, vectorlength)
         results = rank(similarities)
+        amountofresults = len(results)
         firstresult = results[0]
         sniplocks = getsniplocation(rawquery, results, "test_data/")
         snippets = getsnippet(sniplocks, "test_data/")
@@ -42,7 +44,35 @@ def results():
             return render_template("return.html",
                                    query=rawquery,
                                    results=fiveresults,
-                                   snippet=snippets)
+                                   snippet=snippets, resultno=5, completeresults=results, amountofresults=amountofresults)
+            
+@app.route("/encore", methods=["POST"])
+def encore():
+    seenallresults = False
+    # retrieve all form fields
+    query = request.form["query"]
+    results = request.form["results"] # represents the last rank returned
+    resultno = int(request.form["resultno"]) # by def. stored as string
+    amountofresults = int(request.form["amountofresults"])
+    # The dictionaries and lists are returned as a string rather than as a list
+    # or dict. The ast.literal_eval()-function converts this to an actual
+    # function instead of a string.
+    listedresults = ast.literal_eval(results)
+    snippet = request.form["snippet"]
+    dictsnippets = ast.literal_eval(snippet)
+    fiveresults = list()
+    resultlimit = resultno + 5 # by default, docs are listed in the range 0-5
+    if resultlimit >= amountofresults:
+        # if the amount of documents exceeds the standard range, adjust the
+        # range here
+        resultlimit = amountofresults
+        seenallresults = True # check to see if there can be more results seen
+    for i in range(resultno, resultlimit):
+        fiveresults.append(listedresults[i])
+    return render_template("encore.html",
+                               query=query,
+                               results=fiveresults,
+                               snippet=dictsnippets, resultno=resultlimit, completeresults=results, amountofresults=amountofresults, seenallresults=seenallresults)
 
 
 if __name__ == "__main__":

@@ -177,7 +177,7 @@ def getsnippet(sniplocation, path):
     snippets location provided with the getsniplocation() function.
     """
     snippets = dict()
-    unaval = "There was no exact match with your query in this document, however it may contain similair words"
+    unaval = "There was no exact match with your query in this document."
     for document in sniplocation:
         snippettext = ""  # reset variable
         positions = sniplocation[document]
