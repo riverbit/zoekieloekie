@@ -16,7 +16,9 @@ def cleantext(text):
     upper case letters and numbers. It also generates the document term frequencies."""
     # Remove illegal characters from the text
     cleanedtext = ""
-    illegal_chars = [",", ".", "'", "\"", "\n", "\r", "£", "$"]
+    illegal_chars = [",", ".", "'", "\"", "\n", "\r", "£", "$", "(", ")", "-"]
+    text = text.replace("\n", " ") # replace newlines with space
+    text = text.replace("\r", " ") # replace carr. return with space
     stop = set(stopwords.words("english"))
     for i in text:  # loop every character
         i = i.lower()  # make text lower case
@@ -165,8 +167,9 @@ folderpath = "test_data"
 dictionary = gentermfreq(doclist, folderpath)
 matrix = generatematrix(dictionary)
 df = calcdf(matrix)
-#print(df)
 idf = calcidf(df)
+print(idf)
 b = generatetfmatrix(matrix, idf)
 #print(b)
 saveastxt(b)
+print(idf)
