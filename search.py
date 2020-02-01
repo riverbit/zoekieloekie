@@ -31,12 +31,10 @@ def generatesqrmatrix(dataframe):
                 2, tuplen
         ):  # for every digit in the tuple (starting from 2), do the loop
             tupvalue = tuple[i]
-            if type(tupvalue) is not str:  # check if it is a float or integer
-                # get the current row which is the first item in the tuple
+            if type(tupvalue) is not str:
                 current_row = tuple[0]
-                # the name of the field is the label of the namedtuple
                 header = tuple._fields[i]
-                tupvalue = tupvalue * tupvalue  # square the tupvalue
+                tupvalue = tupvalue * tupvalue
                 dataframesqr.at[(current_row), header] = tupvalue
     return dataframesqr
 
@@ -48,12 +46,12 @@ def generatedveclen(twmatrix):
     header = list(twmatrix)  # get the header of the matrix
     headerlen = len(header)
     totals = list()
-    # for every entry in the list, starting from the first until the last digit, do the loop
     for i in range(1, headerlen):
-        # get the sum of the complete column with the header corresponding to the current loop-ID
+        # get the sum of the complete column with the header corresponding 
+        # to the current loop-ID
         total = twmatrix[header[i]].sum()
         total_sqrt = mth.sqrt(total)  # get the square root of the total
-        totals.append(total_sqrt)  # add the total to the list
+        totals.append(total_sqrt)
     return totals
 
 
@@ -72,9 +70,9 @@ def getdotprod(query, dataframe):
         totalscore = 0
         for (tuple) in (currentframe.itertuples()
                         ):  # create a tuple from every line in the dataframe
-            if (
-                    tuple[1] in query
-            ):  # if the term is in the query, add the frequency to the totalscore
+            if (tuple[1] in query):  
+                # if the term is in the query, 
+                # add the frequency to the total score
                 totalscore += tuple[2]
         # add the totalscore to a dictionary
         dotproducts[headers[i]] = totalscore
@@ -85,19 +83,16 @@ def getdotprod(query, dataframe):
 def sim(dotproducts, query, veclen):
     """Calculate the cosine similarity for the `dotproducts` and `query` provided with the previously calculated `veclen` as vector length."""
     counter = -1  # create a counter which will be zero on the first iteration
-    similarities = dict()  # create a dictionary for the results per word
-    for item in dotproducts:  # go through every document
-        counter += 1  # increase the counter
+    similarities = dict()
+    for item in dotproducts:
+        counter += 1
         # get the vectorlength for the current word
         vectorlength = veclen[counter]
         # get the result of the dot product function for the current word
         dotproduct = dotproducts[item]
         querylength = len(query)
-        # get the square root of the query length
         sqrtquerylength = mth.sqrt(querylength)
-        # calculate the cosine similarity
         calculation = dotproduct / (vectorlength * sqrtquerylength)
-        # add the result to the dictionary for the current word
         similarities[item] = calculation
     return similarities
 
