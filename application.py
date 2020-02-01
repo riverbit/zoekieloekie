@@ -18,8 +18,9 @@ def results():
     rawquery = request.form["query"]
     query = reformquery(rawquery)
     if not query:  # if the adjusted query is empty, do not continue
-        return render_template("error.html",
-                               reason="your query did not return any results")
+        return render_template(
+            "error.html", reason="your query did not return any results"
+        )
     else:
         dataframe = opendoc("data/database.csv")
         twmatrix = generatesqrmatrix(dataframe)
@@ -40,10 +41,15 @@ def results():
                 reason='your query did not return any results. If in doubt, search "Boeing"',
             )
         else:
-            return render_template("return.html",
-                                   query=rawquery,
-                                   results=fiveresults,
-                                   snippet=snippets, resultno=5, completeresults=results, amountofresults=amountofresults)
+            return render_template(
+                "return.html",
+                query=rawquery,
+                results=fiveresults,
+                snippet=snippets,
+                resultno=5,
+                completeresults=results,
+                amountofresults=amountofresults,
+            )
 
 
 @app.route("/encore", methods=["POST"])
@@ -69,10 +75,16 @@ def encore():
         seenallresults = True  # check to see if there can be more results seen
     for i in range(resultno, resultlimit):
         fiveresults.append(listedresults[i])
-    return render_template("encore.html",
-                           query=query,
-                           results=fiveresults,
-                           snippet=dictsnippets, resultno=resultlimit, completeresults=results, amountofresults=amountofresults, seenallresults=seenallresults)
+    return render_template(
+        "encore.html",
+        query=query,
+        results=fiveresults,
+        snippet=dictsnippets,
+        resultno=resultlimit,
+        completeresults=results,
+        amountofresults=amountofresults,
+        seenallresults=seenallresults,
+    )
 
 
 if __name__ == "__main__":
