@@ -1,7 +1,8 @@
+import ast
+
 from flask import Flask
 from flask import render_template
 from flask import request
-import ast
 
 from search import *
 
