@@ -24,9 +24,8 @@ def generatesqrmatrix(dataframe):
     """Generates a squared weighted term matrix from a `dataframe`. Returns the updated weighted term matrix."""
     dataframe = dataframe[0]  # get the first entry from the tuple
     dataframesqr = dataframe.copy()
-    for (
-        tuple
-    ) in dataframesqr.itertuples():  # create a tuple from every line in the dataframe
+    for (tuple) in dataframesqr.itertuples(
+    ):  # create a tuple from every line in the dataframe
         tuplen = len(tuple)  # get the length of the tuple
         for i in range(2, tuplen):
             # for every digit in the tuple (starting from 2), do the loop
@@ -68,11 +67,8 @@ def getdotprod(query, dataframe):
         # copy the existing dataframe to a new dataframe called currentframe
         currentframe = df[["Unnamed: 0", headers[i]]].copy()
         totalscore = 0
-        for (
-            tuple
-        ) in (
-            currentframe.itertuples()
-        ):  # create a tuple from every line in the dataframe
+        for (tuple) in (currentframe.itertuples()
+                        ):  # create a tuple from every line in the dataframe
             if tuple[1] in query:
                 # if the term is in the query,
                 # add the frequency to the total score
