@@ -27,9 +27,8 @@ def generatesqrmatrix(dataframe):
     for (tuple) in dataframesqr.itertuples(
     ):  # create a tuple from every line in the dataframe
         tuplen = len(tuple)  # get the length of the tuple
-        for i in range(
-                2, tuplen
-        ):  # for every digit in the tuple (starting from 2), do the loop
+        for i in range(2, tuplen):
+            # for every digit in the tuple (starting from 2), do the loop
             tupvalue = tuple[i]
             if type(tupvalue) is not str:
                 current_row = tuple[0]
@@ -99,8 +98,8 @@ def sim(dotproducts, query, veclen):
 
 def rank(similarities):
     """Rank the supplied similarities and convert it to a listed list."""
-    dfSimi = pd.DataFrame(list(
-        similarities.items()))  # get the dictionary into a dataframe
+    dfSimi = pd.DataFrame(list(similarities.items()))  
+    # get the dictionary into a dataframe
     # sort the matrix in descending order in the first column
     dfSimi.sort_values(by=[1], inplace=True, ascending=False)
     ranks = dfSimi.values.tolist()

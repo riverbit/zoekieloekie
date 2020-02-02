@@ -12,8 +12,10 @@ ps = PorterStemmer()
 
 
 def cleantext(text):
-    """This function cleans the supplied text from illegal characters, such as interpunction,
-    upper case letters and numbers. It also generates the document term frequencies."""
+    """
+    This function cleans the supplied text from illegal characters, such as interpunction,
+    upper case letters and numbers. It also generates the document term frequencies.
+    """
     # Remove illegal characters from the text
     cleanedtext = ""
     illegal_chars = [",", ".", "'", "\"", "\n", "\r", "£", "$", "(", ")", "-"]
@@ -67,9 +69,8 @@ def generatematrix(wordcounts):
             if term not in wordlist:
                 wordlist.append(term)
     matrix.append(header)  # add the generated header to the matrix
-    for (word) in (
-            wordlist
-    ):  # for every unique word, check the frequency of the word in every doc
+    for word in wordlist:  
+        # for every unique word, check the frequency of the word in every doc
         row = list()  # reset the list called row
         row.append(word)  # put the unique word in front of the row
         for document in header:  # for every document check if it contains the term
@@ -81,7 +82,7 @@ def generatematrix(wordcounts):
                 # insert 0 for the current document if it does not contain the word
                 row.append(0)
         matrix.append(row)
-    header.insert(0, "")
+    header.insert(0, "") # insert " in the header row to space out the docs
     return matrix
 
 
