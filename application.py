@@ -38,8 +38,7 @@ def results():
         if firstresult[1] == 0.0:
             return render_template(
                 "error.html",
-                reason=
-                'your query did not return any results. If in doubt, search "Boeing"',
+                reason='your query did not return any results. If in doubt, search "Boeing"',
             )
         else:
             return render_template(

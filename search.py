@@ -46,7 +46,7 @@ def generatedveclen(twmatrix):
     headerlen = len(header)
     totals = list()
     for i in range(1, headerlen):
-        # get the sum of the complete column with the header corresponding 
+        # get the sum of the complete column with the header corresponding
         # to the current loop-ID
         total = twmatrix[header[i]].sum()
         total_sqrt = mth.sqrt(total)  # get the square root of the total
@@ -69,8 +69,8 @@ def getdotprod(query, dataframe):
         totalscore = 0
         for (tuple) in (currentframe.itertuples()
                         ):  # create a tuple from every line in the dataframe
-            if (tuple[1] in query):  
-                # if the term is in the query, 
+            if (tuple[1] in query):
+                # if the term is in the query,
                 # add the frequency to the total score
                 totalscore += tuple[2]
         # add the totalscore to a dictionary
@@ -98,7 +98,7 @@ def sim(dotproducts, query, veclen):
 
 def rank(similarities):
     """Rank the supplied similarities and convert it to a listed list."""
-    dfSimi = pd.DataFrame(list(similarities.items()))  
+    dfSimi = pd.DataFrame(list(similarities.items()))
     # get the dictionary into a dataframe
     # sort the matrix in descending order in the first column
     dfSimi.sort_values(by=[1], inplace=True, ascending=False)
