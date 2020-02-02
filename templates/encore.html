@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>Results - ZoekieLoekie</title>
+<title>Additional results - ZoekieLoekie</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -36,7 +36,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   <div class="w3-content">
     <div class="w3-twothird">
       <h1>Results for <i>{{ query }}</i></h1>
-      <h5 class="w3-padding-32">We have found one or more matching documents. Here is our top five:</h5>
+      <h5 class="w3-padding-32">Here are other documents in our database related to your query:</b></h5>
 
 		<p>
 		{% for result in results %}
@@ -44,14 +44,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 		{{ snippet[result[0]] }}<br/><hr/>
 		{% endfor %}
 		</p>
+			{% if not seenallresults %}
 			<form method="POST" action="encore">
 				<input hidden type=text name="query" value="{{ query }}">
 				<input hidden type=text name="results" value="{{ completeresults }}">
-				<input hidden type=text name="resultno" value="{{ resultno }}">
+				<input hidden type=number name="resultno" value="{{ resultno }}">
 				<input hidden type=text name="snippet" value="{{ snippet }}">
 				<input hidden type=text name="amountofresults" value="{{ amountofresults }}">
 				<input class="w3-button w3-black w3-padding-large w3-large w3-margin-top" type="submit" value="More results">
 			</form>
+			{% endif %}
+			{% if seenallresults %}
+			<i class="w3-text-grey">All available results have been returned to you.</i>
+			{% endif %}
     </div>
 
     <div class="w3-third w3-center">
